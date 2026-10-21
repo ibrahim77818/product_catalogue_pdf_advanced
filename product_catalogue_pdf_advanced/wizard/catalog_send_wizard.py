@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 from markupsafe import Markup
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -68,25 +68,28 @@ class ProductCatalogSend(models.TransientModel):
                 Markup("<tr><td>%s</td><td>%s</td><td>%s</td></tr>") % (
                     pricelist.display_name,
                     lang_names.get(lang, lang),
-                    ", ".join(partners.mapped("display_name")),
+                    # name, not display_name: Odoo 17 appends the email
+                    # to display_name when the tags widget sets show_email.
+                    ", ".join(partners.mapped("name")),
                 )
                 for (pricelist, lang), partners in groups.items())
             wizard.group_summary = Markup(
                 "<table class='table table-sm o_pcat_send_summary'>"
                 "<thead><tr><th>%s</th><th>%s</th><th>%s</th></tr></thead>"
                 "<tbody>%s</tbody></table>"
-            ) % (_("Pricelist"), _("Language"), _("Recipients"), rows)
+            ) % (self.env._("Pricelist"), self.env._("Language"), self.env._("Recipients"), rows)
 
     def action_send(self):
         self.ensure_one()
         if not self.template_id:
-            raise UserError(_("Choose an email template."))
+            raise UserError(self.env._("Choose an email template."))
         missing = self.partner_ids.filtered(lambda p: not p.email)
         if missing:
-            raise UserError(_(
+            raise UserError(self.env._(
                 "These recipients have no email address: %s",
                 ", ".join(missing.mapped("display_name"))))
         catalog = self.catalog_id
+        lang_names = dict(self.env["res.lang"].get_installed())
         summary = []
         for (pricelist, lang), partners in self._group_recipients().items():
             attachment = catalog._get_pdf_attachment(pricelist=pricelist, lang=lang)
@@ -102,9 +105,10 @@ class ProductCatalogSend(models.TransientModel):
                 email_layout_xmlid="mail.mail_notification_light",
             )
             summary.append(Markup("<li>%s — %s: %s</li>") % (
-                pricelist.display_name, lang, ", ".join(partners.mapped("display_name"))))
+                pricelist.display_name, lang_names.get(lang, lang),
+                ", ".join(partners.mapped("name"))))
         catalog.message_post(
             body=Markup("<p>%s</p><ul>%s</ul>") % (
-                _("Catalogue emailed:"), Markup("").join(summary)),
+                self.env._("Catalogue emailed:"), Markup("").join(summary)),
             message_type="comment", subtype_xmlid="mail.mt_note")
         return {"type": "ir.actions.act_window_close"}

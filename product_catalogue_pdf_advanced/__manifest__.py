@@ -4,7 +4,7 @@
     "summary": "Print-accurate, pricelist-aware, bilingual (LTR/RTL) PDF product "
                "catalogues with deterministic pagination, stock bands, QR links "
                "and per-pricelist email delivery.",
-    "version": "16.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Sales/Sales",
     "author": "Ibrahim Yahia",
     "website": "https://www.linkedin.com/in/ibrahim-yahia",
@@ -37,6 +37,7 @@
         ],
     },
     "images": ["static/description/banner.png"],
+    "post_init_hook": "post_init_hook",
     "application": True,
     "installable": True,
 }

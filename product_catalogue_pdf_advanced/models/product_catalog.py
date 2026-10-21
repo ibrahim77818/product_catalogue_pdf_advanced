@@ -20,11 +20,11 @@ from urllib.parse import quote
 import qrcode
 from markupsafe import Markup
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.addons.base.models.res_partner import _lang_get
 from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
-from odoo.tools import format_date, format_datetime, formatLang, html2plaintext
+from odoo.fields import Domain
+from odoo.tools import SQL, format_date, format_datetime, formatLang, html2plaintext
 from odoo.tools.image import image_data_uri
 from odoo.tools.pdf import merge_pdf
 from odoo.tools.safe_eval import safe_eval
@@ -160,8 +160,8 @@ class ProductCatalog(models.Model):
     show_price = fields.Boolean(string="Show Price", default=True)
     show_compare_price = fields.Boolean(
         string="Show Price Before Discount", default=True,
-        help="Strike through the public price when the pricelist gives a "
-             "lower price and its discount policy shows the discount.")
+        help="Strike through the price before discount when the applied "
+             "pricelist rule is a percentage discount.")
     show_description = fields.Boolean(string="Show Description", default=True)
     description_source = fields.Selection(
         [("sale", "Sales description"), ("product", "Product description")],
@@ -246,12 +246,14 @@ class ProductCatalog(models.Model):
     product_count = fields.Integer(compute="_compute_product_count")
     last_generated_on = fields.Datetime(readonly=True, copy=False)
 
-    _sql_constraints = [
-        ("max_products_positive", "CHECK(max_products > 0)",
-         "The product limit must be positive."),
-        ("ttl_positive", "CHECK(cache_ttl_minutes >= 0)",
-         "The PDF reuse delay cannot be negative."),
-    ]
+    _max_products_positive = models.Constraint(
+        'CHECK(max_products > 0)',
+        "The product limit must be positive.",
+    )
+    _ttl_positive = models.Constraint(
+        'CHECK(cache_ttl_minutes >= 0)',
+        "The PDF reuse delay cannot be negative.",
+    )
 
     # ------------------------------------------------------------------
     # Constraints & onchanges
@@ -262,7 +264,7 @@ class ProductCatalog(models.Model):
             lo, hi = layout.STYLE_COLUMN_LIMITS[catalog.style]
             if not lo <= catalog.columns <= hi:
                 style_label = dict(self._fields["style"].selection)[catalog.style]
-                raise ValidationError(_(
+                raise ValidationError(self.env._(
                     "%(style)s supports %(lo)s to %(hi)s boxes per row.",
                     style=style_label, lo=lo, hi=hi))
 
@@ -270,14 +272,14 @@ class ProductCatalog(models.Model):
     def _check_accent_color(self):
         for catalog in self:
             if not HEX_COLOR_RE.match(catalog.accent_color or ""):
-                raise ValidationError(_("The accent colour must look like #1D4E89."))
+                raise ValidationError(self.env._("The accent colour must look like #1D4E89."))
 
     @api.constrains("valid_from", "valid_until")
     def _check_validity(self):
         for catalog in self:
             if catalog.valid_from and catalog.valid_until \
                     and catalog.valid_from > catalog.valid_until:
-                raise ValidationError(_("The validity end must follow its start."))
+                raise ValidationError(self.env._("The validity end must follow its start."))
 
     @api.constrains("extra_domain")
     def _check_extra_domain(self):
@@ -286,7 +288,7 @@ class ProductCatalog(models.Model):
                 domain = catalog._parse_extra_domain()
                 self.env["product.template"].search(domain, limit=1)
             except Exception as exc:  # pylint: disable=broad-except
-                raise ValidationError(_("The advanced filter is invalid: %s", exc)) from exc
+                raise ValidationError(self.env._("The advanced filter is invalid: %s", exc)) from exc
 
     @api.onchange("style")
     def _onchange_style(self):
@@ -301,7 +303,7 @@ class ProductCatalog(models.Model):
         self.ensure_one()
         domain = safe_eval(self.extra_domain or "[]", {})
         if not isinstance(domain, (list, tuple)):
-            raise ValueError(_("a domain must be a list"))
+            raise ValueError(self.env._("a domain must be a list"))
         return list(domain)
 
     def _get_product_domain(self):
@@ -323,7 +325,7 @@ class ProductCatalog(models.Model):
             domain.append(("id", "in", self.product_tmpl_ids.ids))
         if self.exclude_product_tmpl_ids:
             domain.append(("id", "not in", self.exclude_product_tmpl_ids.ids))
-        return expression.AND([domain, self._parse_extra_domain()])
+        return Domain.AND([domain, self._parse_extra_domain()])
 
     def _get_search_order(self):
         order = []
@@ -390,10 +392,18 @@ class ProductCatalog(models.Model):
         company = self.company_id
         now = fields.Datetime.now()
         rule_prices = pricelist._compute_price_rule(variants, 1.0, date=now)
-        show_compare = self.show_compare_price \
-            and pricelist.discount_policy == "without_discount"
-        public = variants.price_compute(
-            "list_price", currency=currency, company=company) if show_compare else {}
+        # Odoo 18 removed the pricelist "discount policy". A discount is shown
+        # when the applied rule is a percentage rule, and the price before
+        # discount comes from the rule itself (same logic as sale orders).
+        public = {}
+        if self.show_compare_price:
+            Item = self.env["product.pricelist.item"]
+            for variant in variants:
+                rule = Item.browse(rule_prices[variant.id][1])
+                if rule and rule.compute_price == "percentage":
+                    public[variant.id] = rule._compute_price_before_discount(
+                        product=variant, quantity=1.0, uom=variant.uom_id, date=now,
+                        currency=currency)
         tax_included = self.price_tax_display == "included" \
             and "taxes_id" in variants._fields
 
@@ -426,7 +436,7 @@ class ProductCatalog(models.Model):
 
         :return: {template_id: free_qty} (storable templates only)
         """
-        storable = templates.filtered(lambda t: t.type == "product")
+        storable = templates.filtered("is_storable")
         if not storable:
             return {}
         ctx = {"warehouse": self.warehouse_id.id} if self.warehouse_id else {}
@@ -517,7 +527,7 @@ class ProductCatalog(models.Model):
         Template = self.env["product.template"]
         ids = Template.search(self._get_product_domain(), order=self._get_search_order()).ids
         if len(ids) > self.max_products:
-            raise UserError(_(
+            raise UserError(self.env._(
                 "This catalogue selects %(count)s products, above its limit of "
                 "%(limit)s. Narrow the filters or split it by category.",
                 count=len(ids), limit=self.max_products))
@@ -526,7 +536,7 @@ class ProductCatalog(models.Model):
             max(metrics.image_height, metrics.image_width), self.print_quality)
         has_website = "website_url" in Template._fields
         base_url = self.get_base_url()
-        read_fields = ["name", "default_code", "barcode", "categ_id", "type", "uom_id"]
+        read_fields = ["name", "default_code", "barcode", "categ_id", "is_storable", "uom_id"]
         if self.show_description:
             read_fields.append(
                 "description_sale" if self.description_source == "sale" else "description")
@@ -549,7 +559,7 @@ class ProductCatalog(models.Model):
             missing = {v["categ_id"][0] for v in rows if v["categ_id"]} - set(category_labels)
             category_labels.update(self._category_labels(missing))
             for values in rows:
-                free_qty = stock.get(values["id"]) if values["type"] == "product" else None
+                free_qty = stock.get(values["id"]) if values["is_storable"] else None
                 band = self._stock_band(free_qty) if self.warehouse_id else False
                 if self.hide_out_of_stock and band == "out":
                     continue
@@ -697,15 +707,16 @@ class ProductCatalog(models.Model):
         self.env.flush_all()
         tmpl_ids = self.env["product.template"].search(self._get_product_domain()).ids
         cr = self.env.cr
-        cr.execute("""
+        cr.execute(SQL("""
             SELECT max(t.write_date), max(p.write_date)
               FROM product_template t
          LEFT JOIN product_product p ON p.product_tmpl_id = t.id
              WHERE t.id = ANY(%s)
-        """, [tmpl_ids or [0]])
+        """, tmpl_ids or [0]))
         tmpl_wd, variant_wd = cr.fetchone()
-        cr.execute("SELECT max(write_date) FROM product_pricelist_item WHERE pricelist_id = %s",
-                   [pricelist.id])
+        cr.execute(SQL(
+            "SELECT max(write_date) FROM product_pricelist_item WHERE pricelist_id = %s",
+            pricelist.id))
         items_wd = cr.fetchone()[0]
         ttl = max(self.cache_ttl_minutes, 1) * 60
         bucket = int(fields.Datetime.now().timestamp() // ttl)
@@ -814,7 +825,7 @@ class ProductCatalog(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Send Catalogue"),
+            "name": self.env._("Send Catalogue"),
             "res_model": "product.catalog.send",
             "view_mode": "form",
             "target": "new",
@@ -825,16 +836,18 @@ class ProductCatalog(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Products in %s", self.name),
+            "name": self.env._("Products in %s", self.name),
             "res_model": "product.template",
-            "view_mode": "kanban,tree,form",
-            "domain": self._get_product_domain(),
+            "view_mode": "kanban,list,form",
+            "domain": list(self._get_product_domain()),
         }
 
-    def copy(self, default=None):
-        default = dict(default or {})
-        default.setdefault("name", _("%s (copy)", self.name))
-        return super().copy(default)
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        if "name" not in (default or {}):
+            for catalog, vals in zip(self, vals_list, strict=True):
+                vals["name"] = self.env._("%s (copy)", catalog.name)
+        return vals_list
 
 
 def _rgb(hex_color):

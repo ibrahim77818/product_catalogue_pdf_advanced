@@ -30,17 +30,18 @@ $pcat-card-border: #E3E8EF;
 }
 
 // wkhtmltopdf bodies are wrapped by Odoo's minimal layout in
-// <body class="container">, whose Bootstrap gutter is 15px on each side
-// (QtWebKit ignores the CSS variable and uses the 15px fallback). Page boxes
-// must start at the sheet edge, so the catalogue root cancels that gutter.
-$pcat-body-gutter: 15px;
+// <body class="o_body_pdf container">, whose Bootstrap gutter (16px since
+// Odoo 18, 15px before) would push the page boxes off the sheet edge.
+// Odoo 18+ tags that body with the report's XML id, so the gutter is removed
+// for this report only, whatever its size.
+body.o_body_pdf[data-report-id="product_catalogue_pdf_advanced.action_report_product_catalog"] {
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
 
 .o_pcat {
     @include pcat-font();
-    &.article {
-        margin-left: -$pcat-body-gutter;
-        margin-right: -$pcat-body-gutter;
-    }
     color: $pcat-body;
     font-size: 8pt;
     line-height: 1.3;

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import _, models
+from odoo import models
 from odoo.exceptions import UserError
 
 CATALOG_REPORT = "product_catalogue_pdf_advanced.report_product_catalog"
@@ -25,7 +25,7 @@ class IrActionsReport(models.Model):
             catalogs = self.env["product.catalog"].browse(res_ids)
             formats = {c._get_paperformat() for c in catalogs}
             if len(formats) > 1:
-                raise UserError(_(
+                raise UserError(self.env._(
                     "Catalogues with different paper sizes or orientations "
                     "cannot be printed in one PDF. Print them separately."))
             self = self.with_context(pcat_paperformat_id=formats.pop().id)

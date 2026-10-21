@@ -3,7 +3,7 @@ Product Catalogue PDF Advanced
 ==============================
 
 Print-accurate, pricelist-aware, bilingual (LTR/RTL) PDF product catalogues
-for Odoo 16, with deterministic pagination, availability badges, QR links and
+for Odoo 19, with deterministic pagination, availability badges, QR links and
 email delivery that never leaks one customer's prices to another.
 
 .. contents::
@@ -12,7 +12,7 @@ email delivery that never leaks one customer's prices to another.
 Why it is built this way
 ========================
 
-Odoo 16 prints with **wkhtmltopdf 0.12.x (QtWebKit, ~2012)**. That engine has
+Odoo 19 prints with **wkhtmltopdf 0.12.x (QtWebKit, ~2012)**. That engine has
 no CSS Grid, unreliable ``flex-wrap``, no CSS variables, no ``object-fit``,
 ignores ``@page`` margin boxes and treats ``page-break-*`` as a hint. A
 catalogue that relies on "modern CSS paged media" looks right in the HTML
@@ -66,7 +66,9 @@ Features
 
   * Computed by Odoo's own pricelist engine (``_compute_price_rule``) for
     each variant, then folded into "From X" when variants differ.
-  * Public price struck through for pricelists that show the discount.
+  * Price before discount struck through when the applied rule is a
+    percentage discount, the same test Odoo 19 applies on sales orders
+    (the catalogue's own toggle replaces the *Discounts* setting).
   * Tax included or excluded (customer taxes, when Invoicing is installed).
 
 * **Availability**:
@@ -178,8 +180,12 @@ of products (no N+1).
 Requirements
 ============
 
-* Odoo 16.0 (Community or Enterprise). Depends on ``product``, ``stock`` and
+* Odoo 19.0 (Community or Enterprise). Depends on ``product``, ``stock`` and
   ``mail``. ``account`` is optional (for tax-included prices).
+* **Pricelists setting**: Odoo 19 hides pricelists until *Settings › Pricelists*
+  is on, and a catalogue needs one. Installing the module turns the setting
+  on (``hooks.py``) and creates a default pricelist per company, exactly as
+  ticking the box would.
 * Python ``qrcode``, which is already in Odoo's ``requirements.txt``.
 * **wkhtmltopdf 0.12.6.1 built with patched Qt**, as Odoo requires.
 
@@ -238,7 +244,7 @@ Each check uses an oracle outside the module's own logic:
 Known limits
 ============
 
-* Product category names are not translatable in Odoo 16, so they print as
+* Product category names are not translatable in Odoo 19, so they print as
   stored.
 * "Tax included" applies the product's customer taxes without fiscal
   position mapping. Use "Tax excluded" for cross-border catalogues.
@@ -253,3 +259,51 @@ Author: Ibrahim Yahia — https://www.linkedin.com/in/ibrahim-yahia
 
 Fonts: IBM Plex Sans Arabic © IBM Corp., SIL Open Font License 1.1
 (``static/fonts/OFL-IBM-Plex.txt``).
+
+Porting notes (16.0 → 17.0)
+===========================
+
+* Views: ``attrs`` replaced by ``invisible`` / ``required`` Python expressions.
+* ``product.product.price_compute`` renamed ``_price_compute`` in Odoo 17.
+* ``product.list0`` no longer exists; demo data ships its own public
+  pricelist, and the install hook enables the Pricelists setting.
+* Tests read PDFs through ``odoo.tools.pdf`` (pypdf or PyPDF2, as installed).
+* Send wizard and chatter list recipients by name: Odoo 17 appends the email
+  to ``display_name`` inside the email-tags widget.
+
+Porting notes (17.0 → 18.0)
+===========================
+
+* Views: ``<tree>`` → ``<list>`` (and ``view_mode`` ``tree`` → ``list``);
+  the chatter ``<div class="oe_chatter">`` block → ``<chatter/>``.
+* Products: ``detailed_type`` is gone. Storable means ``is_storable``
+  (added by Inventory), with ``type`` ``consu``; services stay ``service``.
+  Demo data and tests updated accordingly.
+* Pricelists: ``discount_policy`` is gone. The strike-through price now
+  follows Odoo 18's own rule: shown when the applied rule's
+  ``compute_price`` is ``percentage``, with the before-discount price from
+  ``product.pricelist.item._compute_price_before_discount``.
+* Reports: the PDF body is now ``o_body_pdf container`` with a 16 px gutter
+  (15 px before) and carries ``data-report-id``. The stylesheet removes the
+  gutter through that attribute instead of a fixed negative margin.
+
+Porting notes (18.0 → 19.0)
+===========================
+
+* Security: groups now hang off a ``res.groups.privilege``
+  (*Product Catalogues*, shown in the *Sales* section of the user form)
+  instead of an ``ir.module.category``; ``users`` became ``user_ids``.
+* ``_sql_constraints`` → ``models.Constraint`` attributes (applied with
+  Odoo's own ``odoo-bin upgrade_code`` script).
+* ``odoo.osv.expression.AND`` → ``odoo.fields.Domain.AND`` (the former warns
+  as deprecated since 19.0); action domains are serialised with ``list()``.
+* Translations use ``self.env._(...)`` in model code.
+* ``copy()`` override → ``copy_data()``, so duplicating several catalogues
+  at once works.
+* Raw SQL in the cache fingerprint is built with ``odoo.tools.SQL``.
+* ``_compute_price_rule`` takes ``uom``/``date``/``currency`` as keyword-only
+  arguments in 19; the price-before-discount call passes them by name.
+* Search view: the deprecated ``expand``/``string`` attributes on the
+  group-by ``<group>`` were removed.
+* Demo data now needs ``--with-demo`` on a new database (Odoo 19 no longer
+  loads demo data by default).

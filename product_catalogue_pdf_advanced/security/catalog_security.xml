@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="module_category_product_catalogue" model="ir.module.category">
+    <!--
+        Odoo 19 organises access rights by "privilege" (res.groups.privilege):
+        the user form shows one selection per privilege, inside its
+        application category. Groups point at the privilege, not at a category.
+    -->
+    <record id="res_groups_privilege_product_catalogue" model="res.groups.privilege">
         <field name="name">Product Catalogues</field>
         <field name="description">Design, print and send PDF product catalogues.</field>
+        <field name="category_id" ref="base.module_category_sales"/>
         <field name="sequence">60</field>
     </record>
 
     <!-- Users print and send catalogues that managers have designed. -->
     <record id="group_catalog_user" model="res.groups">
         <field name="name">User</field>
-        <field name="category_id" ref="module_category_product_catalogue"/>
+        <field name="sequence">10</field>
+        <field name="privilege_id" ref="res_groups_privilege_product_catalogue"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         <field name="comment">Can view, print and email product catalogues.</field>
     </record>
 
     <record id="group_catalog_manager" model="res.groups">
         <field name="name">Administrator</field>
-        <field name="category_id" ref="module_category_product_catalogue"/>
+        <field name="sequence">20</field>
+        <field name="privilege_id" ref="res_groups_privilege_product_catalogue"/>
         <field name="implied_ids" eval="[(4, ref('group_catalog_user'))]"/>
-        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         <field name="comment">Can create and configure product catalogues.</field>
     </record>
 
