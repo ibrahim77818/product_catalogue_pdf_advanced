@@ -51,7 +51,8 @@
     <record id="demo_product_ergoflex" model="product.template">
         <field name="name">ErgoFlex Pro Mesh Task Chair</field>
         <field name="categ_id" ref="demo_categ_office_chairs"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">1450</field>
         <field name="barcode">628000000001</field>
         <field name="description_sale">Breathable mesh back, adjustable lumbar support, 4D armrests and synchronised tilt.</field>
@@ -65,7 +66,8 @@
     <record id="demo_product_executive" model="product.template">
         <field name="name">Executive High-Back Leather Chair with Adjustable Headrest and Polished Aluminium Base</field>
         <field name="categ_id" ref="demo_categ_office_chairs"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">2890</field>
         <field name="default_code">NOI-CHA-002</field>
         <field name="barcode">628000000002</field>
@@ -76,7 +78,8 @@
     <record id="demo_product_visitor" model="product.template">
         <field name="name">Visitor Chair Stackable</field>
         <field name="categ_id" ref="demo_categ_office_chairs"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">340</field>
         <field name="default_code">NOI-CHA-003</field>
         <field name="barcode">628000000003</field>
@@ -86,7 +89,8 @@
     <record id="demo_product_stool" model="product.template">
         <field name="name">Drafting Stool Tall</field>
         <field name="categ_id" ref="demo_categ_office_chairs"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">610</field>
         <field name="default_code">NOI-CHA-004</field>
         <field name="barcode">628000000004</field>
@@ -95,7 +99,8 @@
     <record id="demo_product_lounge" model="product.template">
         <field name="name">Lounge Armchair Nordic</field>
         <field name="categ_id" ref="demo_categ_office_chairs"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">1980</field>
         <field name="default_code">NOI-CHA-005</field>
         <field name="barcode">628000000005</field>
@@ -106,7 +111,8 @@
     <record id="demo_product_cantilever" model="product.template">
         <field name="name">Conference Chair Cantilever</field>
         <field name="categ_id" ref="demo_categ_office_chairs"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">720</field>
         <field name="default_code">NOI-CHA-006</field>
         <field name="barcode">628000000006</field>
@@ -117,7 +123,8 @@
     <record id="demo_product_sitstand" model="product.template">
         <field name="name">Sit-Stand Desk Dual Motor 160x80</field>
         <field name="categ_id" ref="demo_categ_desks"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">3250</field>
         <field name="default_code">NOI-DES-007</field>
         <field name="barcode">628000000007</field>
@@ -128,7 +135,8 @@
     <record id="demo_product_bench" model="product.template">
         <field name="name">Bench Workstation 4-Person</field>
         <field name="categ_id" ref="demo_categ_desks"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">6900</field>
         <field name="default_code">NOI-DES-008</field>
         <field name="barcode">628000000008</field>
@@ -138,7 +146,8 @@
     <record id="demo_product_compact" model="product.template">
         <field name="name">Compact Home Office Desk</field>
         <field name="categ_id" ref="demo_categ_desks"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">890</field>
         <field name="default_code">NOI-DES-009</field>
         <field name="barcode">628000000009</field>
@@ -149,7 +158,8 @@
     <record id="demo_product_walnut" model="product.template">
         <field name="name">Executive Desk Walnut Veneer</field>
         <field name="categ_id" ref="demo_categ_desks"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">7400</field>
         <field name="default_code">NOI-DES-010</field>
         <field name="barcode">628000000010</field>
@@ -160,7 +170,8 @@
     <record id="demo_product_meeting" model="product.template">
         <field name="name">Meeting Table Round 120</field>
         <field name="categ_id" ref="demo_categ_desks"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">1650</field>
         <field name="default_code">NOI-DES-011</field>
         <field name="barcode">628000000011</field>
@@ -169,7 +180,8 @@
     <record id="demo_product_pedestal" model="product.template">
         <field name="name">Mobile Pedestal 3 Drawers</field>
         <field name="categ_id" ref="demo_categ_storage"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">760</field>
         <field name="default_code">NOI-STO-012</field>
         <field name="barcode">628000000012</field>
@@ -180,7 +192,8 @@
     <record id="demo_product_cabinet" model="product.template">
         <field name="name">Tall Cabinet Double Door</field>
         <field name="categ_id" ref="demo_categ_storage"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">1890</field>
         <field name="default_code">NOI-STO-013</field>
         <field name="barcode">628000000013</field>
@@ -189,7 +202,8 @@
     <record id="demo_product_filing" model="product.template">
         <field name="name">Lateral Filing Cabinet 4 Drawer</field>
         <field name="categ_id" ref="demo_categ_storage"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">2340</field>
         <field name="default_code">NOI-STO-014</field>
         <field name="barcode">628000000014</field>
@@ -199,7 +213,8 @@
     <record id="demo_product_locker" model="product.template">
         <field name="name">Personal Locker Bank 6</field>
         <field name="categ_id" ref="demo_categ_storage"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">2650</field>
         <field name="default_code">NOI-STO-015</field>
         <field name="barcode">628000000015</field>
@@ -210,7 +225,8 @@
     <record id="demo_product_arc" model="product.template">
         <field name="name">LED Desk Lamp Arc</field>
         <field name="categ_id" ref="demo_categ_lighting"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">390</field>
         <field name="default_code">NOI-LIG-016</field>
         <field name="barcode">628000000016</field>
@@ -221,7 +237,8 @@
     <record id="demo_product_floor" model="product.template">
         <field name="name">Floor Lamp Uplighter</field>
         <field name="categ_id" ref="demo_categ_lighting"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">720</field>
         <field name="default_code">NOI-LIG-017</field>
         <field name="barcode">628000000017</field>
@@ -229,7 +246,8 @@
     <record id="demo_product_pendant" model="product.template">
         <field name="name">Pendant Linear Suspended 120cm</field>
         <field name="categ_id" ref="demo_categ_lighting"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">1340</field>
         <field name="default_code">NOI-LIG-018</field>
         <field name="barcode">628000000018</field>
@@ -240,7 +258,8 @@
     <record id="demo_product_lightbar" model="product.template">
         <field name="name">Monitor Light Bar</field>
         <field name="categ_id" ref="demo_categ_lighting"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">260</field>
         <field name="default_code">NOI-LIG-019</field>
         <field name="barcode">628000000019</field>
@@ -251,7 +270,8 @@
     <record id="demo_product_monitorarm" model="product.template">
         <field name="name">Monitor Arm Dual Gas Spring</field>
         <field name="categ_id" ref="demo_categ_accessories"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">540</field>
         <field name="default_code">NOI-ACC-020</field>
         <field name="barcode">628000000020</field>
@@ -262,7 +282,8 @@
     <record id="demo_product_cabletray" model="product.template">
         <field name="name">Cable Tray Under-Desk</field>
         <field name="categ_id" ref="demo_categ_accessories"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">120</field>
         <field name="default_code">NOI-ACC-021</field>
         <field name="barcode">628000000021</field>
@@ -270,7 +291,8 @@
     <record id="demo_product_footrest" model="product.template">
         <field name="name">Footrest Ergonomic Tilting</field>
         <field name="categ_id" ref="demo_categ_accessories"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">190</field>
         <field name="default_code">NOI-ACC-022</field>
         <field name="barcode">628000000022</field>
@@ -281,7 +303,8 @@
     <record id="demo_product_organiser" model="product.template">
         <field name="name">Desk Organiser Felt Set</field>
         <field name="categ_id" ref="demo_categ_accessories"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">140</field>
         <field name="default_code">NOI-ACC-023</field>
         <field name="barcode">628000000023</field>
@@ -292,7 +315,8 @@
     <record id="demo_product_divider" model="product.template">
         <field name="name">Acoustic Desk Divider 140</field>
         <field name="categ_id" ref="demo_categ_accessories"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">680</field>
         <field name="default_code">NOI-ACC-024</field>
         <field name="barcode">628000000024</field>
@@ -303,7 +327,8 @@
     <record id="demo_product_laptopstand" model="product.template">
         <field name="name">Laptop Stand Aluminium</field>
         <field name="categ_id" ref="demo_categ_accessories"/>
-        <field name="detailed_type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True"/>
         <field name="list_price">175</field>
         <field name="default_code">NOI-ACC-025</field>
         <field name="barcode">628000000025</field>
@@ -412,10 +437,14 @@
         <function eval="[[('id', 'in', [ref('demo_quant_ergoflex'), ref('demo_quant_executive'), ref('demo_quant_stool'), ref('demo_quant_cantilever'), ref('demo_quant_sitstand'), ref('demo_quant_bench'), ref('demo_quant_walnut'), ref('demo_quant_pedestal'), ref('demo_quant_cabinet'), ref('demo_quant_filing'), ref('demo_quant_arc'), ref('demo_quant_pendant'), ref('demo_quant_lightbar'), ref('demo_quant_monitorarm'), ref('demo_quant_footrest'), ref('demo_quant_organiser'), ref('demo_quant_divider'), ref('demo_quant_laptopstand')])]]" model="stock.quant" name="search"/>
     </function>
 
-    <!-- Pricelists: public, and a trade pricelist that shows its 12% discount -->
+    <!-- Pricelists: public, and a trade pricelist that shows its 12% discount.
+         Odoo 17 has no product.list0 any more; the demo brings its own. -->
+    <record id="demo_pricelist_public" model="product.pricelist">
+        <field name="name">Public Price (Catalogue Demo)</field>
+        <field name="sequence">5</field>
+    </record>
     <record id="demo_pricelist_trade" model="product.pricelist">
         <field name="name">Trade Partners -12%</field>
-        <field name="discount_policy">without_discount</field>
     </record>
     <record id="demo_pricelist_trade_rule" model="product.pricelist.item">
         <field name="pricelist_id" ref="demo_pricelist_trade"/>
@@ -442,7 +471,7 @@
         <field name="name">Walk-in Customer (Catalogue Demo)</field>
         <field name="email">walkin@example.com</field>
         <field name="is_company" eval="True"/>
-        <field name="property_product_pricelist" ref="product.list0"/>
+        <field name="property_product_pricelist" ref="demo_pricelist_public"/>
     </record>
 
     <!-- Ready-to-print catalogues -->
@@ -460,7 +489,7 @@
         <field name="show_link" eval="True"/>
         <field name="link_url_pattern">https://najd-interiors.example/p/{default_code}</field>
         <field name="categ_ids" eval="[(6, 0, [ref('demo_categ_root')])]"/>
-        <field name="pricelist_id" ref="product.list0"/>
+        <field name="pricelist_id" ref="demo_pricelist_public"/>
         <field name="warehouse_id" ref="stock.warehouse0"/>
         <field name="valid_until" eval="(DateTime.today() + relativedelta(months=6)).strftime('%Y-%m-%d')"/>
         <field name="notes">Prices subject to stock availability. Delivery within 10 working days.</field>
@@ -508,7 +537,7 @@
         <field name="group_by_category" eval="False"/>
         <field name="accent_color">#B45309</field>
         <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_new')])]"/>
-        <field name="pricelist_id" ref="product.list0"/>
+        <field name="pricelist_id" ref="demo_pricelist_public"/>
         <field name="warehouse_id" ref="stock.warehouse0"/>
         <field name="show_stock" eval="True"/>
     </record>

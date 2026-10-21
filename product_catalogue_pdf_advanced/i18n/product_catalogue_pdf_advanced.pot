@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 11:09+0000\n"
-"PO-Revision-Date: 2026-10-21 11:09+0000\n"
+"POT-Creation-Date: 2026-10-21 14:40+0000\n"
+"PO-Revision-Date: 2026-10-21 14:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,12 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "%(style)s supports %(lo)s to %(hi)s boxes per row."
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "%s (copy)"
 msgstr ""
 
@@ -43,8 +41,8 @@ msgid ""
 "    </p>\n"
 "    <p>Our team is happy to help with quotations, availability or samples.</p>\n"
 "    <p>\n"
-"        Best regards,<br>\n"
-"        <t t-out=\"user.name or ''\">Sales Team</t><br>\n"
+"        Best regards,<br/>\n"
+"        <t t-out=\"user.name or ''\">Sales Team</t><br/>\n"
 "        <t t-out=\"object.company_id.name or ''\">My Company</t>\n"
 "    </p>\n"
 "</div>\n"
@@ -251,7 +249,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
-#, python-format
 msgid "Catalogue emailed:"
 msgstr ""
 
@@ -264,7 +261,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/ir_actions_report.py:0
-#, python-format
 msgid ""
 "Catalogues with different paper sizes or orientations cannot be printed in "
 "one PDF. Print them separately."
@@ -283,7 +279,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
-#, python-format
 msgid "Choose an email template."
 msgstr ""
 
@@ -687,7 +682,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
 #: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__lang
-#, python-format
 msgid "Language"
 msgstr ""
 
@@ -712,12 +706,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__last_generated_on
 msgid "Last Generated On"
-msgstr ""
-
-#. module: product_catalogue_pdf_advanced
-#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog____last_update
-#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
@@ -772,11 +760,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_price
 msgid "Low stock"
-msgstr ""
-
-#. module: product_catalogue_pdf_advanced
-#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_main_attachment_id
-msgid "Main Attachment"
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
@@ -1008,7 +991,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__pricelist_id
 #: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
 #: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
-#, python-format
 msgid "Pricelist"
 msgstr ""
 
@@ -1067,7 +1049,7 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #: model:ir.actions.act_window,name:product_catalogue_pdf_advanced.action_product_catalog
 #: model:ir.module.category,name:product_catalogue_pdf_advanced.module_category_product_catalogue
-#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_tree
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_list
 msgid "Product Catalogues"
 msgstr ""
 
@@ -1100,7 +1082,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "Products in %s"
 msgstr ""
 
@@ -1120,6 +1101,11 @@ msgid "Promotions"
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
+#: model:product.pricelist,name:product_catalogue_pdf_advanced.demo_pricelist_public
+msgid "Public Price (Catalogue Demo)"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
 #: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_qr
 msgid "QR"
 msgstr ""
@@ -1128,7 +1114,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
 #: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__partner_ids
-#, python-format
 msgid "Recipients"
 msgstr ""
 
@@ -1210,7 +1195,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
 #: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_send_view_form
-#, python-format
 msgid "Send Catalogue"
 msgstr ""
 
@@ -1326,8 +1310,8 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__show_compare_price
 msgid ""
-"Strike through the public price when the pricelist gives a lower price and "
-"its discount policy shows the discount."
+"Strike through the price before discount when the applied pricelist rule is "
+"a percentage discount."
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
@@ -1379,14 +1363,12 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "The accent colour must look like #1D4E89."
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "The advanced filter is invalid: %s"
 msgstr ""
 
@@ -1398,21 +1380,18 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "The validity end must follow its start."
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
-#, python-format
 msgid "These recipients have no email address: %s"
 msgstr ""
 
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid ""
 "This catalogue selects %(count)s products, above its limit of %(limit)s. "
 "Narrow the filters or split it by category."
@@ -1538,7 +1517,6 @@ msgstr ""
 #. module: product_catalogue_pdf_advanced
 #. odoo-python
 #: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
-#, python-format
 msgid "a domain must be a list"
 msgstr ""
 

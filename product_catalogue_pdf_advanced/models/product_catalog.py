@@ -160,8 +160,8 @@ class ProductCatalog(models.Model):
     show_price = fields.Boolean(string="Show Price", default=True)
     show_compare_price = fields.Boolean(
         string="Show Price Before Discount", default=True,
-        help="Strike through the public price when the pricelist gives a "
-             "lower price and its discount policy shows the discount.")
+        help="Strike through the price before discount when the applied "
+             "pricelist rule is a percentage discount.")
     show_description = fields.Boolean(string="Show Description", default=True)
     description_source = fields.Selection(
         [("sale", "Sales description"), ("product", "Product description")],
@@ -390,10 +390,17 @@ class ProductCatalog(models.Model):
         company = self.company_id
         now = fields.Datetime.now()
         rule_prices = pricelist._compute_price_rule(variants, 1.0, date=now)
-        show_compare = self.show_compare_price \
-            and pricelist.discount_policy == "without_discount"
-        public = variants.price_compute(
-            "list_price", currency=currency, company=company) if show_compare else {}
+        # Odoo 18 removed the pricelist "discount policy". A discount is shown
+        # when the applied rule is a percentage rule, and the price before
+        # discount comes from the rule itself (same logic as sale orders).
+        public = {}
+        if self.show_compare_price:
+            Item = self.env["product.pricelist.item"]
+            for variant in variants:
+                rule = Item.browse(rule_prices[variant.id][1])
+                if rule and rule.compute_price == "percentage":
+                    public[variant.id] = rule._compute_price_before_discount(
+                        variant, 1.0, variant.uom_id, now, currency)
         tax_included = self.price_tax_display == "included" \
             and "taxes_id" in variants._fields
 
@@ -426,7 +433,7 @@ class ProductCatalog(models.Model):
 
         :return: {template_id: free_qty} (storable templates only)
         """
-        storable = templates.filtered(lambda t: t.type == "product")
+        storable = templates.filtered("is_storable")
         if not storable:
             return {}
         ctx = {"warehouse": self.warehouse_id.id} if self.warehouse_id else {}
@@ -526,7 +533,7 @@ class ProductCatalog(models.Model):
             max(metrics.image_height, metrics.image_width), self.print_quality)
         has_website = "website_url" in Template._fields
         base_url = self.get_base_url()
-        read_fields = ["name", "default_code", "barcode", "categ_id", "type", "uom_id"]
+        read_fields = ["name", "default_code", "barcode", "categ_id", "is_storable", "uom_id"]
         if self.show_description:
             read_fields.append(
                 "description_sale" if self.description_source == "sale" else "description")
@@ -549,7 +556,7 @@ class ProductCatalog(models.Model):
             missing = {v["categ_id"][0] for v in rows if v["categ_id"]} - set(category_labels)
             category_labels.update(self._category_labels(missing))
             for values in rows:
-                free_qty = stock.get(values["id"]) if values["type"] == "product" else None
+                free_qty = stock.get(values["id"]) if values["is_storable"] else None
                 band = self._stock_band(free_qty) if self.warehouse_id else False
                 if self.hide_out_of_stock and band == "out":
                     continue
@@ -827,7 +834,7 @@ class ProductCatalog(models.Model):
             "type": "ir.actions.act_window",
             "name": _("Products in %s", self.name),
             "res_model": "product.template",
-            "view_mode": "kanban,tree,form",
+            "view_mode": "kanban,list,form",
             "domain": self._get_product_domain(),
         }
 

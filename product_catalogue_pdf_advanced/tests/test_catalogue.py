@@ -168,7 +168,7 @@ class CatalogCase(TransactionCase):
                 "name": "PCat VAT 15", "amount": 15, "type_tax_use": "sale",
                 "company_id": cls.company.id, "country_id": country.id})
         Tmpl = env["product.template"]
-        common = {"detailed_type": "product", "sale_ok": True}
+        common = {"type": "consu", "is_storable": True, "sale_ok": True}
         if cls.tax:
             common["taxes_id"] = [(6, 0, cls.tax.ids)]
         cls.chair = Tmpl.create(dict(common, name="PCat Chair", list_price=100.0,
@@ -184,7 +184,7 @@ class CatalogCase(TransactionCase):
         blue.price_extra = 20.0
         cls.lamp = Tmpl.create(dict(common, name="PCat Lamp", list_price=30.0,
                                     categ_id=cls.categ_lamps.id, default_code="PC-LA"))
-        cls.service = Tmpl.create({"name": "PCat Assembly", "detailed_type": "service",
+        cls.service = Tmpl.create({"name": "PCat Assembly", "type": "service",
                                    "list_price": 10.0, "categ_id": cls.categ_lamps.id})
         cls.not_saleable = Tmpl.create(dict(common, name="PCat Internal Part", sale_ok=False,
                                             categ_id=cls.categ_lamps.id))
@@ -196,7 +196,6 @@ class CatalogCase(TransactionCase):
             "name": "PCat Public", "currency_id": cls.currency.id})
         cls.trade = env["product.pricelist"].create({
             "name": "PCat Trade", "currency_id": cls.currency.id,
-            "discount_policy": "without_discount",
             "item_ids": [(0, 0, {"applied_on": "3_global", "compute_price": "percentage",
                                  "percent_price": 10})]})
         cls.catalog = env["product.catalog"].create({
@@ -359,7 +358,7 @@ class TestCatalogData(CatalogCase):
 
         def make(n):
             self.env["product.template"].create([{
-                "name": "Bulk %s" % i, "detailed_type": "product", "list_price": i,
+                "name": "Bulk %s" % i, "type": "consu", "is_storable": True, "list_price": i,
                 "categ_id": self.categ_lamps.id, "product_tag_ids": [(6, 0, tag.ids)],
             } for i in range(n)])
 
@@ -499,7 +498,7 @@ class TestCatalogPdf(HttpCase):
     def _pdf(self):
         pdf, _fmt = self.env["ir.actions.report"].with_context(
             force_report_rendering=True)._render_qweb_pdf(REPORT, self.catalog.ids)
-        from PyPDF2 import PdfReader
+        from odoo.tools.pdf import PdfReader
         return PdfReader(io.BytesIO(pdf))
 
     def test_pdf_page_count_matches_plan(self):
@@ -519,7 +518,7 @@ class TestCatalogPdf(HttpCase):
         with patch.object(product_catalog, "PAGE_BATCH", 2):
             # Outside tests Odoo always renders; inside, it must be forced.
             pdf = self.catalog.with_context(force_report_rendering=True)._render_pdf()
-        from PyPDF2 import PdfReader
+        from odoo.tools.pdf import PdfReader
         reader = PdfReader(io.BytesIO(pdf))
         self.assertEqual(len(reader.pages), len(plan))
         self.assertIn("3 / %s" % len(plan), reader.pages[2].extract_text())
