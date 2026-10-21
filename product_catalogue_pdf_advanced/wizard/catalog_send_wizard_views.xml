@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_catalog_send_view_form" model="ir.ui.view">
+        <field name="name">product.catalog.send.form</field>
+        <field name="model">product.catalog.send</field>
+        <field name="arch" type="xml">
+            <form string="Send Catalogue">
+                <field name="catalog_id" invisible="1"/>
+                <group>
+                    <field name="partner_ids" widget="many2many_tags_email"
+                           placeholder="Add customers..."
+                           context="{'show_email': True}"/>
+                    <field name="template_id" options="{'no_create': True}"/>
+                    <field name="use_partner_pricelist"/>
+                    <field name="use_partner_lang"/>
+                </group>
+                <div attrs="{'invisible': [('group_count', '=', 0)]}">
+                    <field name="group_count" invisible="1"/>
+                    <p class="text-muted mb-1">
+                        One PDF is generated per pricelist and language, so each
+                        customer only sees their own prices:
+                    </p>
+                    <field name="group_summary" nolabel="1"/>
+                </div>
+                <footer>
+                    <button name="action_send" type="object" string="Send"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

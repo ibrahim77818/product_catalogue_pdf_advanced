@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_product_catalog" model="ir.actions.report">
+        <field name="name">Product Catalogue</field>
+        <field name="model">product.catalog</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">product_catalogue_pdf_advanced.report_product_catalog</field>
+        <field name="report_file">product_catalogue_pdf_advanced.report_product_catalog</field>
+        <field name="print_report_name">object.name</field>
+        <field name="paperformat_id" ref="paperformat_catalog_a4_portrait"/>
+        <field name="binding_model_id" ref="model_product_catalog"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

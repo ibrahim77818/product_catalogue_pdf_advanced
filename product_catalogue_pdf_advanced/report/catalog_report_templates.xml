@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Product catalogue report.
+
+        The template only draws the page plan computed in Python
+        (models/catalog_layout.py): every page is a fixed-size box, every row
+        has a fixed height, so wkhtmltopdf never has to decide a page break.
+        Lengths are millimetres; "mm" below means a value from the plan.
+    -->
+    <template id="report_product_catalog">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="catalog">
+                <t t-set="data" t-value="catalog_data[catalog.id]"/>
+                <t t-call="product_catalogue_pdf_advanced.report_product_catalog_document"
+                   t-lang="data['lang']"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_product_catalog_document">
+        <t t-set="g" t-value="data['geo']"/>
+        <t t-set="m" t-value="data['metrics']"/>
+        <t t-set="spec" t-value="data['spec']"/>
+        <div t-attf-class="article o_pcat #{data['scope']}"
+             t-att-dir="data['direction']"
+             t-att-data-oe-model="catalog._name"
+             t-att-data-oe-id="catalog.id"
+             t-att-data-oe-lang="data['lang']">
+            <style t-out="data['theme_css']"/>
+            <t t-foreach="data['plan']" t-as="page">
+                <div t-attf-class="o_pcat_page o_pcat_page_#{page['kind']} #{'o_pcat_last' if page_last else ''}"
+                     t-attf-style="width: #{mm(g.width)}; height: #{mm(g.box_height)};">
+                    <t t-if="page['kind'] == 'cover'">
+                        <t t-call="product_catalogue_pdf_advanced.catalog_cover"/>
+                    </t>
+                    <t t-else="">
+                        <div class="o_pcat_topbar"/>
+                        <t t-call="product_catalogue_pdf_advanced.catalog_page_header"/>
+                        <div class="o_pcat_content"
+                             t-attf-style="top: #{mm(g.margin_top + g.header_h)}; left: #{mm(g.margin_x)}; width: #{mm(g.content_width)}; height: #{mm(g.content_height)};">
+                            <t t-if="page['kind'] == 'toc'">
+                                <t t-call="product_catalogue_pdf_advanced.catalog_toc"/>
+                            </t>
+                            <t t-else="">
+                                <t t-foreach="page['blocks']" t-as="block">
+                                    <t t-if="block['type'] == 'heading'">
+                                        <t t-call="product_catalogue_pdf_advanced.catalog_heading"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-call="product_catalogue_pdf_advanced.catalog_row"/>
+                                    </t>
+                                </t>
+                            </t>
+                        </div>
+                        <t t-call="product_catalogue_pdf_advanced.catalog_page_footer"/>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <!-- Running header -->
+    <template id="catalog_page_header">
+        <t t-set="first_heading" t-value="([b['label'] for b in page['blocks'] if b['type'] == 'heading'] or [False])[0]"/>
+        <div class="o_pcat_header"
+             t-attf-style="top: #{mm(g.margin_top)}; left: #{mm(g.margin_x)}; width: #{mm(g.content_width)}; height: #{mm(g.header_h - 2)};">
+            <table style="width: 100%; height: 100%;">
+                <tr>
+                    <td class="o_pcat_header_logo" style="width: 1%;" t-if="data['company'].logo">
+                        <img t-att-src="image_data_uri(data['company'].logo)" alt="Logo"/>
+                    </td>
+                    <td class="o_pcat_header_title"><t t-out="data['title']"/></td>
+                    <td class="o_pcat_header_side">
+                        <t t-if="page['kind'] == 'toc'">Contents</t>
+                        <t t-elif="first_heading" t-out="first_heading"/>
+                        <t t-else="" t-out="data['company'].name"/>
+                    </td>
+                </tr>
+            </table>
+            <div class="o_pcat_header_rule"/>
+        </div>
+    </template>
+
+    <!-- Running footer: commercial stamp + page n / N -->
+    <template id="catalog_page_footer">
+        <div class="o_pcat_footer"
+             t-attf-style="bottom: #{mm(g.margin_bottom)}; left: #{mm(g.margin_x)}; width: #{mm(g.content_width)}; height: #{mm(g.footer_h)};">
+            <table style="width: 100%;">
+                <tr>
+                    <td class="o_pcat_footer_stamp">
+                        <t t-if="spec.show_price">
+                            <span>Prices in</span> <t t-out="data['currency'].name"/>
+                            ·
+                            <t t-if="data['tax_included']"><span>tax included</span></t>
+                            <t t-else=""><span>tax excluded</span></t>
+                            ·
+                            <t t-out="data['pricelist'].name"/>
+                            ·
+                        </t>
+                        <t t-if="spec.show_stock and data['warehouse']">
+                            <span>Availability:</span> <t t-out="data['warehouse'].name"/> ·
+                        </t>
+                        <span>Generated</span> <t t-out="data['generated_on']"/>
+                        <t t-if="data['valid_until']">
+                            · <span>Valid until</span> <t t-out="data['valid_until']"/>
+                        </t>
+                        <div class="o_pcat_footer_note">
+                            <t t-if="catalog.notes" t-out="catalog.notes"/>
+                            <t t-else="" t-out="data['footer_contact']"/>
+                        </div>
+                    </td>
+                    <td class="o_pcat_pageno">
+                        <t t-out="page['number']"/> / <t t-out="page['total']"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <!-- Category band -->
+    <template id="catalog_heading">
+        <div class="o_pcat_heading"
+             t-attf-style="height: #{mm(block['height'])}; margin-bottom: #{mm(g.gap)};">
+            <table t-attf-style="width: 100%; height: #{mm(block['height'])};">
+                <tr>
+                    <td class="o_pcat_heading_label"><t t-out="block['label']"/></td>
+                    <td class="o_pcat_heading_cont" t-if="block['continued']">continued</td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <!-- One row of cards: fixed-width table cells separated by gap cells -->
+    <template id="catalog_row">
+        <t t-set="row_gap" t-value="(m.row_height - m.card_height)"/>
+        <table class="o_pcat_row"
+               t-attf-style="width: #{mm(g.content_width)}; margin-bottom: #{mm(row_gap)};">
+            <tr>
+                <t t-foreach="range(m.columns)" t-as="col">
+                    <td t-if="col" t-attf-style="width: #{mm(g.gap)};"/>
+                    <td t-attf-style="width: #{mm(m.column_width)};">
+                        <t t-set="card" t-value="block['cards'][col] if col &lt; len(block['cards']) else False"/>
+                        <t t-if="card">
+                            <t t-if="spec.style == 'list'">
+                                <t t-call="product_catalogue_pdf_advanced.catalog_card_list"/>
+                            </t>
+                            <t t-elif="spec.style == 'showcase'">
+                                <t t-call="product_catalogue_pdf_advanced.catalog_card_showcase"/>
+                            </t>
+                            <t t-else="">
+                                <t t-call="product_catalogue_pdf_advanced.catalog_card_grid"/>
+                            </t>
+                        </t>
+                    </td>
+                </t>
+            </tr>
+        </table>
+    </template>
+
+    <!-- Shared fragments -->
+    <template id="catalog_image">
+        <div t-attf-class="o_pcat_imgbox #{'' if card['image'] else 'o_pcat_noimg'}"
+             t-attf-style="height: #{mm(img_h)};">
+            <div class="o_pcat_imgcell" t-attf-style="height: #{mm(img_h)};">
+                <img t-if="card['image']" t-att-src="card['image']" t-att-alt="card['full_name']"
+                     t-attf-style="max-height: #{mm(img_h - 2)};"/>
+                <span t-else="" class="o_pcat_monogram" t-out="card['initial']"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="catalog_price">
+        <t t-if="spec.show_price and card.get('price')">
+            <span t-if="card['compare']" class="o_pcat_compare" t-out="card['compare']"/>
+            <span t-if="card['price_from']" class="o_pcat_from">From</span>
+            <span class="o_pcat_price" t-out="card['price']"/>
+        </t>
+        <t t-if="spec.show_stock and card['stock_band']">
+            <div>
+                <span t-attf-class="o_pcat_badge o_pcat_badge_#{card['stock_band']}">
+                    <span class="o_pcat_dot"/>
+                    <t t-if="card['stock_band'] == 'in'">In stock</t>
+                    <t t-elif="card['stock_band'] == 'low'">Low stock</t>
+                    <t t-else="">On request</t>
+                </span>
+            </div>
+        </t>
+    </template>
+
+    <template id="catalog_qr">
+        <img t-if="card['qr']" class="o_pcat_qr_img" t-att-src="card['qr']" alt="QR"
+             t-attf-style="width: #{mm(m.qr_size)}; height: #{mm(m.qr_size)};"/>
+    </template>
+
+    <!-- Grid card -->
+    <template id="catalog_card_grid">
+        <div class="o_pcat_card o_pcat_card_grid" t-attf-style="height: #{mm(m.card_height)};">
+            <t t-if="spec.show_image">
+                <t t-set="img_h" t-value="m.image_height"/>
+                <t t-call="product_catalogue_pdf_advanced.catalog_image"/>
+            </t>
+            <div class="o_pcat_name"
+                 t-attf-style="font-size: #{m.name_pt}pt; height: #{mm(m.name_pt * 0.3528 * 1.25 * m.name_lines)};"
+                 t-out="card['name']"/>
+            <div t-if="spec.show_ref" class="o_pcat_ref" t-out="card['default_code']"/>
+            <div t-if="spec.show_description" class="o_pcat_desc"
+                 t-attf-style="font-size: #{m.desc_pt}pt; height: #{mm(m.desc_pt * 0.3528 * 1.35 * m.desc_lines)};"
+                 t-out="card['description']"/>
+            <table t-if="m.extra['meta_h']" class="o_pcat_meta"
+                   t-attf-style="height: #{mm(m.extra['meta_h'])};">
+                <tr>
+                    <td><t t-call="product_catalogue_pdf_advanced.catalog_price"/></td>
+                    <td t-if="spec.show_link" class="o_pcat_qr"
+                        t-attf-style="width: #{mm(m.qr_size + 2)};">
+                        <t t-call="product_catalogue_pdf_advanced.catalog_qr"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <!-- Compact list card -->
+    <template id="catalog_card_list">
+        <div class="o_pcat_card o_pcat_card_list" t-attf-style="height: #{mm(m.card_height)};">
+            <table t-attf-style="width: 100%; height: #{mm(m.card_height - 5.2)}; table-layout: fixed;">
+                <tr>
+                    <td t-if="spec.show_image" t-attf-style="width: #{mm(m.image_width)};">
+                        <t t-set="img_h" t-value="m.image_height"/>
+                        <t t-call="product_catalogue_pdf_advanced.catalog_image"/>
+                    </td>
+                    <td class="o_pcat_list_text">
+                        <div class="o_pcat_name" t-attf-style="font-size: #{m.name_pt}pt;" t-out="card['name']"/>
+                        <div t-if="spec.show_ref" class="o_pcat_ref" t-out="card['default_code']"/>
+                        <div t-if="spec.show_description and m.desc_lines" class="o_pcat_desc"
+                             t-attf-style="font-size: #{m.desc_pt}pt; height: #{mm(m.desc_pt * 0.3528 * 1.35 * m.desc_lines)};"
+                             t-out="card['description']"/>
+                    </td>
+                    <td t-if="m.extra['price_col']" class="o_pcat_list_price"
+                        t-attf-style="width: #{mm(m.extra['price_col'])};">
+                        <t t-call="product_catalogue_pdf_advanced.catalog_price"/>
+                    </td>
+                    <td t-if="spec.show_link" class="o_pcat_qr"
+                        t-attf-style="width: #{mm(m.qr_size + 3.5)};">
+                        <t t-call="product_catalogue_pdf_advanced.catalog_qr"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <!-- Showcase card -->
+    <template id="catalog_card_showcase">
+        <div class="o_pcat_card o_pcat_card_showcase" t-attf-style="height: #{mm(m.card_height)};">
+            <t t-set="desc_h" t-value="m.desc_pt * 0.3528 * 1.4 * m.desc_lines"/>
+            <t t-set="name_h" t-value="m.name_pt * 0.3528 * 1.2 * m.name_lines"/>
+            <t t-if="m.columns == 1">
+                <table t-attf-style="width: 100%; table-layout: fixed; height: #{mm(m.card_height - 8)};">
+                    <tr>
+                        <td t-if="spec.show_image" t-attf-style="width: #{mm(m.image_width)};">
+                            <t t-set="img_h" t-value="m.image_height"/>
+                            <t t-call="product_catalogue_pdf_advanced.catalog_image"/>
+                        </td>
+                        <td class="o_pcat_show_text">
+                            <div class="o_pcat_eyebrow" t-out="card['category']"/>
+                            <div class="o_pcat_name"
+                                 t-attf-style="font-size: #{m.name_pt}pt; height: #{mm(name_h)};"
+                                 t-out="card['name']"/>
+                            <div t-if="spec.show_ref" class="o_pcat_ref" t-out="card['default_code']"/>
+                            <div t-if="spec.show_description and m.desc_lines" class="o_pcat_desc"
+                                 t-attf-style="font-size: #{m.desc_pt}pt; height: #{mm(desc_h)};"
+                                 t-out="card['description']"/>
+                            <table t-if="m.extra['meta_h']" class="o_pcat_meta"
+                                   t-attf-style="height: #{mm(m.extra['meta_h'] - 3)};">
+                                <tr>
+                                    <td><t t-call="product_catalogue_pdf_advanced.catalog_price"/></td>
+                                    <td t-if="spec.show_link" class="o_pcat_qr"
+                                        t-attf-style="width: #{mm(m.qr_size + 2)};">
+                                        <t t-call="product_catalogue_pdf_advanced.catalog_qr"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+            <t t-else="">
+                <t t-if="spec.show_image">
+                    <t t-set="img_h" t-value="m.image_height"/>
+                    <t t-call="product_catalogue_pdf_advanced.catalog_image"/>
+                </t>
+                <div class="o_pcat_name"
+                     t-attf-style="font-size: #{m.name_pt}pt; height: #{mm(name_h)};"
+                     t-out="card['name']"/>
+                <div t-if="spec.show_ref" class="o_pcat_ref" t-out="card['default_code']"/>
+                <div t-if="spec.show_description and m.desc_lines" class="o_pcat_desc"
+                     t-attf-style="font-size: #{m.desc_pt}pt; height: #{mm(desc_h)};"
+                     t-out="card['description']"/>
+                <table t-if="m.extra['meta_h']" class="o_pcat_meta"
+                       t-attf-style="height: #{mm(m.extra['meta_h'] - 3)};">
+                    <tr>
+                        <td><t t-call="product_catalogue_pdf_advanced.catalog_price"/></td>
+                        <td t-if="spec.show_link" class="o_pcat_qr"
+                            t-attf-style="width: #{mm(m.qr_size + 2)};">
+                            <t t-call="product_catalogue_pdf_advanced.catalog_qr"/>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </div>
+    </template>
+
+    <!-- Table of contents -->
+    <template id="catalog_toc">
+        <div class="o_pcat_toc_title">Contents</div>
+        <div class="o_pcat_toc_rule"/>
+        <table class="o_pcat_toc">
+            <tr t-foreach="page['entries']" t-as="entry">
+                <td class="o_pcat_toc_label" t-out="entry['label']"/>
+                <td class="o_pcat_toc_leader_cell"><div class="o_pcat_toc_leader"/></td>
+                <td class="o_pcat_toc_page" t-out="entry['page']"/>
+            </tr>
+        </table>
+    </template>
+
+    <!-- Cover -->
+    <template id="catalog_cover">
+        <t t-set="panel_h" t-value="g.box_height * (0.56 if g.height &gt; g.width else 0.46)"/>
+        <t t-set="fact_rows" t-value="1 + (1 if spec.show_price else 0) + (1 if (data['valid_from'] or data['valid_until']) else 0)"/>
+        <t t-set="facts_top" t-value="panel_h + 14"/>
+        <t t-set="chips_top" t-value="facts_top + fact_rows * 13.5 + 3"/>
+        <t t-set="bottom_top" t-value="g.box_height - 14 - 17"/>
+        <t t-set="has_cover_img" t-value="bool(catalog.cover_image)"/>
+        <t t-set="rtl" t-value="data['direction'] == 'rtl'"/>
+        <t t-set="side" t-value="'right' if rtl else 'left'"/>
+        <t t-set="other" t-value="'left' if rtl else 'right'"/>
+        <div class="o_pcat_cover_panel" t-attf-style="height: #{mm(panel_h)};">
+            <div class="o_pcat_circle"
+                 t-attf-style="width: #{mm(g.width * 0.9)}; height: #{mm(g.width * 0.9)}; top: -#{mm(g.width * 0.32)}; #{other}: -#{mm(g.width * 0.3)};"/>
+            <div class="o_pcat_circle"
+                 t-attf-style="width: #{mm(g.width * 0.42)}; height: #{mm(g.width * 0.42)}; top: #{mm(panel_h * 0.55)}; #{other}: #{mm(g.width * 0.18)};"/>
+        </div>
+        <div class="o_pcat_cover_logo" t-if="data['company'].logo"
+             t-attf-style="top: #{mm(16)}; #{side}: #{mm(16)};">
+            <img t-att-src="image_data_uri(data['company'].logo)" alt="Logo"/>
+        </div>
+        <div class="o_pcat_cover_text"
+             t-attf-style="top: #{mm(max(panel_h * 0.34, 46))}; #{side}: #{mm(16)}; width: #{mm((g.width * 0.5) if has_cover_img else (g.width - 32))};">
+            <div class="o_pcat_eyebrow" t-out="data['type_label']"/>
+            <div class="o_pcat_cover_title" t-out="data['title']"/>
+            <div class="o_pcat_cover_subtitle" t-if="catalog.cover_subtitle" t-out="catalog.cover_subtitle"/>
+        </div>
+        <div class="o_pcat_cover_image" t-if="has_cover_img"
+             t-attf-style="top: #{mm(panel_h * 0.2)}; #{other}: #{mm(16)}; width: #{mm(min(g.width * 0.36, panel_h * 0.66))}; height: #{mm(panel_h * 0.66)};">
+            <div class="o_pcat_imgbox" t-attf-style="height: #{mm(panel_h * 0.66 - 3.2)}; background: #FFFFFF;">
+                <div class="o_pcat_imgcell" t-attf-style="height: #{mm(panel_h * 0.66 - 3.2)};">
+                    <img t-att-src="image_data_uri(catalog.cover_image)" alt=""
+                         t-attf-style="max-height: #{mm(panel_h * 0.66 - 3.2)};"/>
+                </div>
+            </div>
+        </div>
+        <table class="o_pcat_cover_facts"
+               t-attf-style="top: #{mm(facts_top)}; #{side}: #{mm(16)}; width: #{mm((g.width * 0.52) if has_cover_img else (g.width - 32))};">
+            <tr>
+                <td style="width: 50%;">
+                    <div class="o_pcat_fact_label">Products</div>
+                    <div class="o_pcat_fact_value">
+                        <t t-out="data['product_count']"/>
+                        <t t-if="data['category_count']">
+                            <span>in</span> <t t-out="data['category_count']"/> <span>categories</span>
+                        </t>
+                    </div>
+                </td>
+                <td style="width: 50%;">
+                    <div class="o_pcat_fact_label">Edition</div>
+                    <div class="o_pcat_fact_value" t-out="data['generated_on']"/>
+                </td>
+            </tr>
+            <tr t-if="spec.show_price">
+                <td>
+                    <div class="o_pcat_fact_label">Pricelist</div>
+                    <div class="o_pcat_fact_value" t-out="data['pricelist'].name"/>
+                </td>
+                <td>
+                    <div class="o_pcat_fact_label">Prices</div>
+                    <div class="o_pcat_fact_value">
+                        <t t-out="data['currency'].name"/>,
+                        <t t-if="data['tax_included']"><span>tax included</span></t>
+                        <t t-else=""><span>tax excluded</span></t>
+                    </div>
+                </td>
+            </tr>
+            <tr t-if="data['valid_from'] or data['valid_until']">
+                <td t-if="data['valid_from']">
+                    <div class="o_pcat_fact_label">Valid from</div>
+                    <div class="o_pcat_fact_value" t-out="data['valid_from']"/>
+                </td>
+                <td t-if="data['valid_until']">
+                    <div class="o_pcat_fact_label">Valid until</div>
+                    <div class="o_pcat_fact_value" t-out="data['valid_until']"/>
+                </td>
+            </tr>
+        </table>
+        <div class="o_pcat_cover_chips" t-if="data['category_names'] and chips_top + 16 &lt;= bottom_top"
+             t-attf-style="top: #{mm(chips_top)}; #{side}: #{mm(16)}; width: #{mm(g.width - 32)}; height: #{mm(bottom_top - chips_top - 2)}; overflow: hidden;">
+            <div class="o_pcat_fact_label">In this edition</div>
+            <span t-foreach="data['category_names'][:12]" t-as="cname" class="o_pcat_chip" t-out="cname"/>
+        </div>
+        <div class="o_pcat_cover_bottom"
+             t-attf-style="bottom: #{mm(14)}; left: #{mm(16)}; right: #{mm(16)};">
+            <div class="o_pcat_cover_company" t-out="data['company'].name"/>
+            <div t-if="data['address']" t-out="data['address']"/>
+            <div t-if="data['footer_contact']" t-out="data['footer_contact']"/>
+        </div>
+        <div class="o_pcat_cover_bar"/>
+    </template>
+</odoo>

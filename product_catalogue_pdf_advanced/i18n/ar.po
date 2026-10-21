@@ -1,0 +1,1594 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-21 11:09+0000\n"
+"PO-Revision-Date: 2026-10-21 11:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "%(style)s supports %(lo)s to %(hi)s boxes per row."
+msgstr "يدعم %(style)s من %(lo)s إلى %(hi)s مربعات في الصف."
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (نسخة)"
+
+#. module: product_catalogue_pdf_advanced
+#: model:mail.template,body_html:product_catalogue_pdf_advanced.mail_template_product_catalog
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-size: 14px;\">\n"
+"    <p>Hello,</p>\n"
+"    <p>\n"
+"        Please find attached our latest catalogue,\n"
+"        <strong t-out=\"object.cover_title or object.name or ''\">Spring Collection</strong>.\n"
+"    </p>\n"
+"    <p t-if=\"object.valid_until\">\n"
+"        Prices are valid until <t t-out=\"format_date(object.valid_until) or ''\">31/12/2026</t>.\n"
+"    </p>\n"
+"    <p>Our team is happy to help with quotations, availability or samples.</p>\n"
+"    <p>\n"
+"        Best regards,<br>\n"
+"        <t t-out=\"user.name or ''\">Sales Team</t><br>\n"
+"        <t t-out=\"object.company_id.name or ''\">My Company</t>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0; padding: 0; font-size: 14px;\" dir=\"rtl\">\n"
+"    <p>مرحبًا،</p>\n"
+"    <p>\n"
+"        تجدون مرفقًا أحدث كتالوج لدينا،\n"
+"        <strong t-out=\"object.cover_title or object.name or ''\">Spring Collection</strong>.\n"
+"    </p>\n"
+"    <p t-if=\"object.valid_until\">\n"
+"        الأسعار صالحة حتى <t t-out=\"format_date(object.valid_until) or ''\">31/12/2026</t>.\n"
+"    </p>\n"
+"    <p>يسعد فريقنا مساعدتكم في عروض الأسعار والتوفر والعينات.</p>\n"
+"    <p>\n"
+"        مع أطيب التحيات،<br/>\n"
+"        <t t-out=\"user.name or ''\">Sales Team</t><br/>\n"
+"        <t t-out=\"object.company_id.name or ''\">My Company</t>\n"
+"    </p>\n"
+"</div>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_footer
+msgid "<span>Availability:</span>"
+msgstr "<span>التوفر:</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_footer
+msgid "<span>Generated</span>"
+msgstr "<span>أُعدّ في</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_footer
+msgid "<span>Prices in</span>"
+msgstr "<span>الأسعار بـ</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "<span>categories</span>"
+msgstr "<span>فئات</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "<span>in</span>"
+msgstr "<span>في</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_footer
+msgid "<span>tax excluded</span>"
+msgstr "<span>غير شاملة الضريبة</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_footer
+msgid "<span>tax included</span>"
+msgstr "<span>شاملة الضريبة</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "<span>→</span>"
+msgstr "<span>←</span>"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__cache_ttl_minutes
+msgid ""
+"A PDF generated for the same configuration, pricelist and language is reused"
+" for this long when sending. 0 disables it."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__paper_size__a4
+msgid "A4"
+msgstr "A4"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__accent_color
+msgid "Accent Color"
+msgstr "اللون المميز"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_divider
+msgid "Acoustic Desk Divider 140"
+msgstr "فاصل مكتب صوتي 140"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__active
+msgid "Active"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_send_view_form
+msgid "Add customers..."
+msgstr "أضف عملاء..."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__extra_domain
+msgid "Additional domain on product templates."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:res.groups,name:product_catalogue_pdf_advanced.group_catalog_manager
+msgid "Administrator"
+msgstr "مدير"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__extra_domain
+msgid "Advanced Filter"
+msgstr "عامل تصفية متقدم"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Advanced filter"
+msgstr "عامل تصفية متقدم"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+msgid "Archived"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__attribute_value_ids
+msgid "Attribute Values"
+msgstr "قيم الخصائص"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__warehouse_id
+msgid "Availability is computed for this warehouse only."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_bench
+msgid "Bench Workstation 4-Person"
+msgstr "محطة عمل جماعية لأربعة أشخاص"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.tag,name:product_catalogue_pdf_advanced.demo_tag_bestseller
+msgid "Bestseller"
+msgstr "الأكثر مبيعًا"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__columns
+msgid "Boxes per Row"
+msgstr "عدد المربعات في الصف"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_ergoflex
+msgid ""
+"Breathable mesh back, adjustable lumbar support, 4D armrests and "
+"synchronised tilt."
+msgstr ""
+"ظهر شبكي جيد التهوية، دعم قطني قابل للتعديل، مساند ذراع رباعية الاتجاه "
+"وإمالة متزامنة."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_cabletray
+msgid "Cable Tray Under-Desk"
+msgstr "مجرى كابلات أسفل المكتب"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__only_saleable
+msgid "Can be Sold Only"
+msgstr "القابلة للبيع فقط"
+
+#. module: product_catalogue_pdf_advanced
+#: model:res.groups,comment:product_catalogue_pdf_advanced.group_catalog_manager
+msgid "Can create and configure product catalogues."
+msgstr "يمكنه إنشاء كتالوجات المنتجات وإعدادها."
+
+#. module: product_catalogue_pdf_advanced
+#: model:res.groups,comment:product_catalogue_pdf_advanced.group_catalog_user
+msgid "Can view, print and email product catalogues."
+msgstr "يمكنه عرض كتالوجات المنتجات وطباعتها وإرسالها بالبريد الإلكتروني."
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_send_view_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__catalog_id
+msgid "Catalog"
+msgstr "الكتالوج"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__catalog_type
+msgid "Catalogue Type"
+msgstr "نوع الكتالوج"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
+#, python-format
+msgid "Catalogue emailed:"
+msgstr "تم إرسال الكتالوج:"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.ui.menu,name:product_catalogue_pdf_advanced.menu_product_catalog
+#: model:ir.ui.menu,name:product_catalogue_pdf_advanced.menu_product_catalog_root
+msgid "Catalogues"
+msgstr "الكتالوجات"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"Catalogues with different paper sizes or orientations cannot be printed in "
+"one PDF. Print them separately."
+msgstr ""
+"لا يمكن طباعة كتالوجات بأحجام ورق أو اتجاهات مختلفة في ملف PDF واحد. اطبعها "
+"بشكل منفصل."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__categ_ids
+msgid "Categories"
+msgstr "الفئات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_pedestal
+msgid "Central locking, anti-tilt, fits under all our desks."
+msgstr "قفل مركزي، مانع للانقلاب، يناسب جميع مكاتبنا."
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
+#, python-format
+msgid "Choose an email template."
+msgstr "اختر قالب بريد إلكتروني."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_cantilever
+msgid "Chrome cantilever frame, padded seat."
+msgstr "إطار كابولي مطلي بالكروم ومقعد مبطن."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_divider
+msgid "Class B sound absorber, pinnable."
+msgstr "ماص للصوت من الفئة B، يقبل التثبيت بالدبابيس."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_compact
+msgid "Compact Home Office Desk"
+msgstr "مكتب منزلي مدمج"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__style__list
+msgid "Compact list"
+msgstr "قائمة مدمجة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__company_id
+msgid "Company"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_cantilever
+msgid "Conference Chair Cantilever"
+msgstr "كرسي اجتماعات كابولي"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.ui.menu,name:product_catalogue_pdf_advanced.menu_product_catalog_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Content"
+msgstr "المحتوى"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_header
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_toc
+msgid "Contents"
+msgstr "المحتويات"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Cover & navigation"
+msgstr "الغلاف والتنقل"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__cover_image
+msgid "Cover Image"
+msgstr "صورة الغلاف"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_cover
+msgid "Cover Page"
+msgstr "صفحة الغلاف"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__cover_subtitle
+msgid "Cover Subtitle"
+msgstr "العنوان الفرعي للغلاف"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__cover_title
+msgid "Cover Title"
+msgstr "عنوان الغلاف"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.actions.act_window,help:product_catalogue_pdf_advanced.action_product_catalog
+msgid "Create your first product catalogue"
+msgstr "أنشئ أول كتالوج منتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__create_uid
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__create_date
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__catalog_type__customer
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+msgid "Customer-specific"
+msgstr "خاص بالعميل"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__print_quality
+msgid ""
+"Decides which stored image resolution is embedded. Higher quality means "
+"larger PDFs and slower rendering."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Defaults to the catalogue name"
+msgstr "يُستخدم اسم الكتالوج افتراضيًا"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Delivery"
+msgstr "الإرسال"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__description_source
+msgid "Description Source"
+msgstr "مصدر الوصف"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Design"
+msgstr "التصميم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.module.category,description:product_catalogue_pdf_advanced.module_category_product_catalogue
+msgid "Design, print and send PDF product catalogues."
+msgstr "تصميم كتالوجات المنتجات بصيغة PDF وطباعتها وإرسالها."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_organiser
+msgid "Desk Organiser Felt Set"
+msgstr "طقم منظم مكتب من اللباد"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_arc
+msgid "Dimmable, 3 colour temperatures, USB-C charging port."
+msgstr "قابل للتعتيم، 3 درجات حرارة لونية، منفذ شحن USB-C."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__display_name
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_stool
+msgid "Drafting Stool Tall"
+msgstr "كرسي رسم مرتفع"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_sitstand
+msgid "Dual motors, 4 memory presets, anti-collision. Height 62–127 cm."
+msgstr "محركان، 4 إعدادات محفوظة، حماية من الاصطدام. الارتفاع 62–127 سم."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.tag,name:product_catalogue_pdf_advanced.demo_tag_eco
+msgid "Eco"
+msgstr "صديق للبيئة"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "Edition"
+msgstr "الإصدار"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__template_id
+msgid "Email Template"
+msgstr "قالب البريد الإلكتروني"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.ui.menu,name:product_catalogue_pdf_advanced.menu_product_catalog_templates
+msgid "Email Templates"
+msgstr "قوالب البريد الإلكتروني"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_ergoflex
+msgid "ErgoFlex Pro Mesh Task Chair"
+msgstr "كرسي مهام شبكي إرغوفلكس برو"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__exclude_product_tmpl_ids
+msgid "Excluded Products"
+msgstr "المنتجات المستبعدة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_walnut
+msgid "Executive Desk Walnut Veneer"
+msgstr "مكتب تنفيذي بقشرة الجوز"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_executive
+msgid ""
+"Executive High-Back Leather Chair with Adjustable Headrest and Polished "
+"Aluminium Base"
+msgstr "كرسي تنفيذي جلدي بظهر عالٍ ومسند رأس قابل للتعديل"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Explicit products"
+msgstr "منتجات محددة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_compact
+msgid "Fits 100 cm alcoves."
+msgstr "يناسب التجاويف بعرض 100 سم."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_floor
+msgid "Floor Lamp Uplighter"
+msgstr "مصباح أرضي علوي"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__notes
+msgid "Footer Note"
+msgstr "ملاحظة التذييل"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Footer note, e.g. terms of sale"
+msgstr "ملاحظة التذييل، مثل شروط البيع"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_footrest
+msgid "Footrest Ergonomic Tilting"
+msgstr "مسند قدم مريح مائل"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_monitorarm
+msgid "For 17–32\" screens up to 9 kg each."
+msgstr "للشاشات من 17 إلى 32 بوصة حتى 9 كجم لكل منها."
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_price
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "From"
+msgstr "ابتداءً من"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_executive
+msgid ""
+"Full-grain leather, pocket-spring seat, polished aluminium five-star base."
+msgstr "جلد طبيعي كامل، مقعد بنوابض جيبية، قاعدة خماسية من الألمنيوم المصقول."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__catalog_type__general
+msgid "General range"
+msgstr "التشكيلة العامة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.attribute.value,name:product_catalogue_pdf_advanced.demo_attr_colour_graphite
+msgid "Graphite"
+msgstr "جرافيت"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__style__grid
+msgid "Grid cards"
+msgstr "بطاقات شبكية"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__style
+msgid ""
+"Grid cards: 1-4 products per row, image on top.\n"
+"Compact list: one dense line per product, ideal for long ranges.\n"
+"Showcase: large imagery and full descriptions, 1-2 per row."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__columns
+msgid "Grid: 1-4. Compact list and Showcase: 1-2."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__group_by_category
+msgid "Group By Category"
+msgstr "تجميع حسب الفئة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__group_count
+msgid "Group Count"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__group_summary
+msgid "Group Summary"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__hide_out_of_stock
+msgid "Hide Unavailable Products"
+msgstr "إخفاء المنتجات غير المتوفرة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__id
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__id
+msgid "ID"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__message_has_error
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__image_size
+msgid "Image Size"
+msgstr "حجم الصورة"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_price
+msgid "In stock"
+msgstr "متوفر"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "In this edition"
+msgstr "في هذا الإصدار"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__categ_ids
+msgid "Includes sub-categories. Empty means all categories."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__catalog_type__internal
+msgid "Internal / Sales team"
+msgstr "داخلي / فريق المبيعات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__sort_order__default_code
+msgid "Internal reference"
+msgstr "المرجع الداخلي"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_locker
+msgid "Keyless combination locks, ventilated doors."
+msgstr "أقفال رقمية دون مفاتيح وأبواب مهواة."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_arc
+msgid "LED Desk Lamp Arc"
+msgstr "مصباح مكتب LED آرك"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__orientation__landscape
+msgid "Landscape"
+msgstr "أفقي"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__lang
+#, python-format
+msgid "Language"
+msgstr "اللغة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__lang
+msgid ""
+"Language the catalogue is printed in. Arabic and other right-to-left "
+"languages mirror the whole layout. When sending, each recipient can receive "
+"their own language instead."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_laptopstand
+msgid "Laptop Stand Aluminium"
+msgstr "حامل لابتوب ألمنيوم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__image_size__large
+msgid "Large"
+msgstr "كبير"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__last_generated_on
+msgid "Last Generated On"
+msgstr "آخر إنشاء في"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog____last_update
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__write_uid
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__write_date
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_filing
+msgid "Lateral Filing Cabinet 4 Drawer"
+msgstr "خزانة ملفات جانبية 4 أدراج"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Layout"
+msgstr "التخطيط"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Links & availability"
+msgstr "الروابط والتوفر"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__show_toc
+msgid ""
+"Lists each category with its page number. Requires grouping by category."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_header
+msgid "Logo"
+msgstr "الشعار"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_lounge
+msgid "Lounge Armchair Nordic"
+msgstr "كرسي استرخاء نورديك"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__low_stock_threshold
+msgid "Low Stock Threshold"
+msgstr "حد الكمية المحدودة"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_price
+msgid "Low stock"
+msgstr "كمية محدودة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__max_products
+msgid "Max Products"
+msgstr "الحد الأقصى للمنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__max_rows_per_page
+msgid "Max Rows Per Page"
+msgstr "الحد الأقصى للصفوف في الصفحة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__image_size__medium
+msgid "Medium"
+msgstr "متوسط"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_meeting
+msgid "Meeting Table Round 120"
+msgstr "طاولة اجتماعات دائرية 120"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_pedestal
+msgid "Mobile Pedestal 3 Drawers"
+msgstr "وحدة أدراج متنقلة 3 أدراج"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_monitorarm
+msgid "Monitor Arm Dual Gas Spring"
+msgstr "ذراع شاشة مزدوج"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_lightbar
+msgid "Monitor Light Bar"
+msgstr "شريط إضاءة للشاشة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__name
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__sort_order__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.tag,name:product_catalogue_pdf_advanced.demo_tag_new
+msgid "New"
+msgstr "جديد"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,cover_title:product_catalogue_pdf_advanced.demo_catalog_lookbook
+msgid "New Arrivals"
+msgstr "وصل حديثًا"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__page_break_per_category
+msgid "New Page per Category"
+msgstr "صفحة جديدة لكل فئة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_lightbar
+msgid "No screen glare, clamps to any monitor."
+msgstr "دون انعكاس على الشاشة، يُثبَّت على أي شاشة."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.attribute.value,name:product_catalogue_pdf_advanced.demo_attr_colour_ocean
+msgid "Ocean"
+msgstr "أزرق محيطي"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,cover_title:product_catalogue_pdf_advanced.demo_catalog_collection
+msgid "Office Collection 2027"
+msgstr "تشكيلة المكاتب 2027"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__print_quality__office
+msgid "Office printer"
+msgstr "طابعة مكتبية"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_price
+msgid "On request"
+msgstr "عند الطلب"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_send_view_form
+msgid ""
+"One PDF is generated per pricelist and language, so each\n"
+"                        customer only sees their own prices:"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__product_tmpl_ids
+msgid "Only These Products"
+msgstr "هذه المنتجات فقط"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Order & limits"
+msgstr "الترتيب والحدود"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__sort_order
+msgid "Order of products inside each category."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__orientation
+msgid "Orientation"
+msgstr "الاتجاه"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Page breaks"
+msgstr "فواصل الصفحات"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Paper"
+msgstr "الورق"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__paper_size
+msgid "Paper Size"
+msgstr "حجم الورق"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,cover_subtitle:product_catalogue_pdf_advanced.demo_catalog_trade
+msgid "Partner prices on our full range"
+msgstr "أسعار الشركاء على كامل تشكيلتنا"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_pendant
+msgid "Pendant Linear Suspended 120cm"
+msgstr "إضاءة معلقة خطية 120 سم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_locker
+msgid "Personal Locker Bank 6"
+msgstr "خزائن شخصية 6 وحدات"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.actions.act_window,help:product_catalogue_pdf_advanced.action_product_catalog
+msgid ""
+"Pick products by category, tag or attribute, choose a pricelist and a\n"
+"                design, then print it or email it. Each customer receives prices from\n"
+"                their own pricelist, in their own language."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__link_url_pattern
+msgid ""
+"Placeholders: {base_url}, {id}, {default_code}, {barcode}.\n"
+"Example: https://shop.example.com/p/{default_code}"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__orientation__portrait
+msgid "Portrait"
+msgstr "عمودي"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Preview"
+msgstr "معاينة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__sort_order__price_desc
+msgid "Price: high to low"
+msgstr "السعر: من الأعلى إلى الأقل"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__sort_order__price_asc
+msgid "Price: low to high"
+msgstr "السعر: من الأقل إلى الأعلى"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__pricelist_id
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+#, python-format
+msgid "Pricelist"
+msgstr "قائمة الأسعار"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__price_tax_display
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "Prices"
+msgstr "الأسعار"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,notes:product_catalogue_pdf_advanced.demo_catalog_collection
+msgid "Prices subject to stock availability. Delivery within 10 working days."
+msgstr "الأسعار حسب توفر المخزون. التوصيل خلال 10 أيام عمل."
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Print PDF"
+msgstr "طباعة PDF"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__print_quality
+msgid "Print Quality"
+msgstr "جودة الطباعة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__show_link
+msgid ""
+"Prints a QR code per product. Uses the URL pattern below, or the eCommerce "
+"page when the Website Sale app is installed."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__show_stock
+msgid ""
+"Prints an availability badge (In stock / Low stock / On request). Exact "
+"quantities are never printed."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.actions.report,name:product_catalogue_pdf_advanced.action_report_product_catalog
+#: model:ir.model,name:product_catalogue_pdf_advanced.model_product_catalog
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Product Catalogue"
+msgstr "كتالوج المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model,name:product_catalogue_pdf_advanced.model_report_product_catalogue_pdf_advanced_report_product_catalog
+msgid "Product Catalogue PDF"
+msgstr "ملف PDF لكتالوج المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:mail.template,name:product_catalogue_pdf_advanced.mail_template_product_catalog
+msgid "Product Catalogue: Send by email"
+msgstr "كتالوج المنتجات: إرسال بالبريد الإلكتروني"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.actions.act_window,name:product_catalogue_pdf_advanced.action_product_catalog
+#: model:ir.module.category,name:product_catalogue_pdf_advanced.module_category_product_catalogue
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_tree
+msgid "Product Catalogues"
+msgstr "كتالوجات المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__product_count
+msgid "Product Count"
+msgstr "عدد المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__tag_ids
+msgid "Product Tags"
+msgstr "وسوم المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__link_url_pattern
+msgid "Product URL Pattern"
+msgstr "نمط رابط المنتج"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__description_source__product
+msgid "Product description"
+msgstr "وصف المنتج"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Products"
+msgstr "المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "Products in %s"
+msgstr "المنتجات في %s"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__attribute_value_ids
+msgid "Products offering at least one of these values."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__print_quality__press
+msgid "Professional print"
+msgstr "طباعة احترافية"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+msgid "Promotions"
+msgstr "العروض"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_qr
+msgid "QR"
+msgstr "رمز QR"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__partner_ids
+#, python-format
+msgid "Recipients"
+msgstr "المستلمون"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_organiser
+msgid "Recycled PET felt."
+msgstr "لباد من PET معاد تدويره."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog_send__use_partner_pricelist
+msgid ""
+"Render the catalogue with the pricelist of each recipient. Otherwise "
+"everybody receives the catalogue's own pricelist."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model,name:product_catalogue_pdf_advanced.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__cache_ttl_minutes
+msgid "Reuse Generated PDF For (min)"
+msgstr "إعادة استخدام ملف PDF لمدة (دقيقة)"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__max_products
+msgid ""
+"Safety limit. Very large catalogues should be split by category so each PDF "
+"stays fast to render and easy to email."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__description_source__sale
+msgid "Sales description"
+msgstr "وصف المبيعات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.attribute.value,name:product_catalogue_pdf_advanced.demo_attr_colour_sand
+msgid "Sand"
+msgstr "رملي"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__print_quality__screen
+msgid "Screen (lightest file)"
+msgstr "شاشة (أخف ملف)"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__catalog_type__promotion
+msgid "Seasonal / Promotion"
+msgstr "موسمي / عروض"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,cover_subtitle:product_catalogue_pdf_advanced.demo_catalog_collection
+msgid "Seating, desks, storage and lighting for modern workplaces"
+msgstr "مقاعد ومكاتب ووحدات تخزين وإضاءة لبيئات العمل الحديثة"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Selection"
+msgstr "الاختيار"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_send_view_form
+msgid "Send"
+msgstr "إرسال"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_send_view_form
+#, python-format
+msgid "Send Catalogue"
+msgstr "إرسال الكتالوج"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model,name:product_catalogue_pdf_advanced.model_product_catalog_send
+msgid "Send Product Catalogue"
+msgstr "إرسال كتالوج المنتجات"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Send by Email"
+msgstr "إرسال بالبريد الإلكتروني"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_bench
+msgid "Shared spine for cable management, privacy screens included."
+msgstr "عمود مشترك لتنظيم الكابلات، مع حواجز خصوصية."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__notes
+msgid "Short line printed in the footer of every page, e.g. terms."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Show"
+msgstr "إظهار"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_stock
+msgid "Show Availability"
+msgstr "إظهار التوفر"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_description
+msgid "Show Description"
+msgstr "إظهار الوصف"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_image
+msgid "Show Image"
+msgstr "إظهار الصورة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_default_code
+msgid "Show Internal Reference"
+msgstr "إظهار المرجع الداخلي"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_price
+msgid "Show Price"
+msgstr "إظهار السعر"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_compare_price
+msgid "Show Price Before Discount"
+msgstr "إظهار السعر قبل الخصم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_link
+msgid "Show Product Link (QR)"
+msgstr "إظهار رابط المنتج (QR)"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__style__showcase
+msgid "Showcase"
+msgstr "عرض مميز"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_sitstand
+msgid "Sit-Stand Desk Dual Motor 160x80"
+msgstr "مكتب وقوف وجلوس بمحركين 160×80"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__hide_out_of_stock
+msgid "Skip storable products with no free quantity."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__image_size__small
+msgid "Small"
+msgstr "صغير"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_lounge
+msgid "Solid oak frame and wool upholstery for reception areas."
+msgstr "إطار من خشب البلوط الصلب وتنجيد صوفي لمناطق الاستقبال."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__sort_order
+msgid "Sort Order"
+msgstr "ترتيب الفرز"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_visitor
+msgid "Stacks up to 8 high. Polypropylene shell."
+msgstr "يُكدَّس حتى 8 كراسٍ. هيكل من البولي بروبيلين."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__show_compare_price
+msgid ""
+"Strike through the public price when the pricelist gives a lower price and "
+"its discount policy shows the discount."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__style
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+msgid "Style"
+msgstr "النمط"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__show_toc
+msgid "Table of Contents"
+msgstr "جدول المحتويات"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_filing
+msgid "Takes A4 and foolscap hanging files."
+msgstr "يتسع لملفات معلقة بمقاس A4 وفولسكاب."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_cabinet
+msgid "Tall Cabinet Double Door"
+msgstr "خزانة طويلة بابين"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__price_tax_display__excluded
+msgid "Tax excluded"
+msgstr "غير شامل الضريبة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__price_tax_display__included
+msgid "Tax included"
+msgstr "شامل الضريبة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__price_tax_display
+msgid "Tax included needs the Invoicing app (customer taxes)."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_footrest
+msgid "Textured surface, tilt 0–30°."
+msgstr "سطح محبب، إمالة 0–30°."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.constraint,message:product_catalogue_pdf_advanced.constraint_product_catalog_ttl_positive
+msgid "The PDF reuse delay cannot be negative."
+msgstr "لا يمكن أن تكون مدة إعادة الاستخدام سالبة."
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "The accent colour must look like #1D4E89."
+msgstr "يجب أن يكون اللون المميز بصيغة ‎#1D4E89."
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "The advanced filter is invalid: %s"
+msgstr "عامل التصفية المتقدم غير صالح: %s"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.constraint,message:product_catalogue_pdf_advanced.constraint_product_catalog_max_products_positive
+msgid "The product limit must be positive."
+msgstr "يجب أن يكون حد المنتجات موجبًا."
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "The validity end must follow its start."
+msgstr "يجب أن تكون نهاية الصلاحية بعد بدايتها."
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/wizard/catalog_send_wizard.py:0
+#, python-format
+msgid "These recipients have no email address: %s"
+msgstr "هؤلاء المستلمون ليس لديهم بريد إلكتروني: %s"
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid ""
+"This catalogue selects %(count)s products, above its limit of %(limit)s. "
+"Narrow the filters or split it by category."
+msgstr ""
+"يحدد هذا الكتالوج %(count)s منتجًا، وهو أكثر من الحد %(limit)s. ضيّق عوامل "
+"التصفية أو قسّمه حسب الفئة."
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,cover_subtitle:product_catalogue_pdf_advanced.demo_catalog_lookbook
+msgid "This season's additions to the range"
+msgstr "إضافات هذا الموسم إلى التشكيلة"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.catalog,cover_title:product_catalogue_pdf_advanced.demo_catalog_trade
+msgid "Trade Catalogue"
+msgstr "كتالوج الشركاء"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.pricelist,name:product_catalogue_pdf_advanced.demo_pricelist_trade
+msgid "Trade Partners -12%"
+msgstr "الشركاء التجاريون ‎-12%"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_search
+msgid "Type"
+msgstr "النوع"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_pendant
+msgid "UGR<19 for glare-free screen work."
+msgstr "مؤشر وهج أقل من 19 للعمل على الشاشات دون إبهار."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields.selection,name:product_catalogue_pdf_advanced.selection__product_catalog__paper_size__letter
+msgid "US Letter"
+msgstr "Letter أمريكي"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Until"
+msgstr "حتى"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.attribute,name:product_catalogue_pdf_advanced.demo_attr_colour
+msgid "Upholstery Colour"
+msgstr "لون التنجيد"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__max_rows_per_page
+msgid ""
+"Upper bound of product rows per page. 0 fits as many rows as the page height"
+" allows."
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__use_partner_lang
+msgid "Use Each Recipient's Language"
+msgstr "استخدام لغة كل مستلم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog_send__use_partner_pricelist
+msgid "Use Each Recipient's Pricelist"
+msgstr "استخدام قائمة أسعار كل مستلم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:res.groups,name:product_catalogue_pdf_advanced.group_catalog_user
+msgid "User"
+msgstr "مستخدم"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__valid_from
+msgid "Valid From"
+msgstr "صالح من"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__valid_until
+msgid "Valid Until"
+msgstr "صالح حتى"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "Valid from"
+msgstr "صالح من"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_cover
+msgid "Valid until"
+msgstr "صالح حتى"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "Validity"
+msgstr "الصلاحية"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,name:product_catalogue_pdf_advanced.demo_product_visitor
+msgid "Visitor Chair Stackable"
+msgstr "كرسي زوار قابل للتكديس"
+
+#. module: product_catalogue_pdf_advanced
+#: model:product.template,description_sale:product_catalogue_pdf_advanced.demo_product_walnut
+msgid "Walnut veneer, leather writing inlay, integrated power module."
+msgstr "قشرة جوز، سطح كتابة جلدي، وحدة طاقة مدمجة."
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__warehouse_id
+msgid "Warehouse"
+msgstr "المستودع"
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,field_description:product_catalogue_pdf_advanced.field_product_catalog__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.model.fields,help:product_catalogue_pdf_advanced.field_product_catalog__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#. odoo-python
+#: code:addons/product_catalogue_pdf_advanced/models/product_catalog.py:0
+#, python-format
+msgid "a domain must be a list"
+msgstr "يجب أن يكون النطاق قائمة"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_heading
+msgid "continued"
+msgstr "تابع"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "e.g. Spring 2027 Range"
+msgstr "مثال: تشكيلة ربيع 2027"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.product_catalog_view_form
+msgid "https://shop.example.com/p/{default_code}"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:ir.actions.report,print_report_name:product_catalogue_pdf_advanced.action_report_product_catalog
+msgid "object.name"
+msgstr ""
+
+#. module: product_catalogue_pdf_advanced
+#: model:mail.template,subject:product_catalogue_pdf_advanced.mail_template_product_catalog
+msgid "{{ object.company_id.name }} – {{ object.cover_title or object.name }}"
+msgstr ""
+"{{ object.company_id.name }} – {{ object.cover_title or object.name }}"
+
+#. module: product_catalogue_pdf_advanced
+#: model_terms:ir.ui.view,arch_db:product_catalogue_pdf_advanced.catalog_page_footer
+msgid "· <span>Valid until</span>"
+msgstr "· <span>صالح حتى</span>"

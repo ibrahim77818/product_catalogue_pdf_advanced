@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_product_catalog_root"
+              name="Catalogues"
+              web_icon="product_catalogue_pdf_advanced,static/description/icon.png"
+              groups="group_catalog_user"
+              sequence="45"/>
+    <menuitem id="menu_product_catalog"
+              name="Catalogues"
+              parent="menu_product_catalog_root"
+              action="action_product_catalog"
+              sequence="10"/>
+    <menuitem id="menu_product_catalog_config"
+              name="Configuration"
+              parent="menu_product_catalog_root"
+              groups="group_catalog_manager"
+              sequence="90"/>
+    <menuitem id="menu_product_catalog_templates"
+              name="Email Templates"
+              parent="menu_product_catalog_config"
+              action="mail.action_email_template_tree_all"
+              groups="base.group_system"
+              sequence="10"/>
+</odoo>

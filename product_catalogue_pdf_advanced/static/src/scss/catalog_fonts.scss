@@ -1,0 +1,24 @@
+// IBM Plex Sans Arabic (SIL OFL 1.1, see static/fonts/OFL-IBM-Plex.txt).
+// Covers Latin and Arabic, so one family serves LTR and RTL catalogues.
+//
+// QtWebKit (wkhtmltopdf) registers web fonts under their *internal* family
+// name and then picks a face by weight, so all faces share one family and
+// are told apart by font-weight only.
+@font-face {
+    font-family: "IBM Plex Sans Arabic";
+    src: url("/product_catalogue_pdf_advanced/static/fonts/IBMPlexSansArabic-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: "IBM Plex Sans Arabic";
+    src: url("/product_catalogue_pdf_advanced/static/fonts/IBMPlexSansArabic-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: "IBM Plex Sans Arabic";
+    src: url("/product_catalogue_pdf_advanced/static/fonts/IBMPlexSansArabic-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_catalog_user,product.catalog user,model_product_catalog,group_catalog_user,1,0,0,0
+access_product_catalog_manager,product.catalog manager,model_product_catalog,group_catalog_manager,1,1,1,1
+access_product_catalog_send_user,product.catalog.send user,model_product_catalog_send,group_catalog_user,1,1,1,1

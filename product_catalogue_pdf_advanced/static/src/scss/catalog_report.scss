@@ -1,0 +1,446 @@
+// Product catalogue report styles.
+//
+// Target engine: wkhtmltopdf 0.12.6 (QtWebKit 2.2). Therefore:
+//   * no CSS Grid, no flex-wrap, no CSS variables, no object-fit;
+//   * rows are fixed-width tables, images are centred with table-cells;
+//   * every box that matters has an explicit height (set inline from the
+//     Python layout engine), overflow is hidden as a safety net only;
+//   * accent colours are injected per catalogue by a scoped <style> block.
+// Everything is scoped under .o_pcat so other reports are untouched.
+
+$pcat-ink: #0F172A;
+$pcat-body: #334155;
+$pcat-muted: #64748B;
+$pcat-faint: #94A3B8;
+$pcat-hairline: #E2E8F0;
+$pcat-surface: #F8FAFC;
+$pcat-card-border: #E3E8EF;
+
+@mixin pcat-font($weight: regular) {
+    font-family: "IBM Plex Sans Arabic", "DejaVu Sans", sans-serif;
+    @if $weight == bold {
+        font-weight: 700;
+    } @else if $weight == semibold {
+        font-weight: 600;
+    } @else if $weight == medium {
+        font-weight: 600;
+    } @else {
+        font-weight: 400;
+    }
+}
+
+// wkhtmltopdf bodies are wrapped by Odoo's minimal layout in
+// <body class="container">, whose Bootstrap gutter is 15px on each side
+// (QtWebKit ignores the CSS variable and uses the 15px fallback). Page boxes
+// must start at the sheet edge, so the catalogue root cancels that gutter.
+$pcat-body-gutter: 15px;
+
+.o_pcat {
+    @include pcat-font();
+    &.article {
+        margin-left: -$pcat-body-gutter;
+        margin-right: -$pcat-body-gutter;
+    }
+    color: $pcat-body;
+    font-size: 8pt;
+    line-height: 1.3;
+    -webkit-font-smoothing: antialiased;
+
+    *, *:before, *:after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    img { border: 0; }
+    // Reset report-wide table styling (Bootstrap and Odoo layouts).
+    table { border-collapse: separate; border-spacing: 0; border: 0 none; margin: 0; }
+    tr, td, th, thead, tbody { border: 0 none !important; background: transparent; }
+    td { padding: 0; vertical-align: top; }
+
+    // ------------------------------------------------------------------
+    // Page box
+    // ------------------------------------------------------------------
+    .o_pcat_page {
+        position: relative;
+        overflow: hidden;
+        background: #FFFFFF;
+        page-break-after: always;
+        page-break-inside: avoid;
+        &.o_pcat_last { page-break-after: auto; }
+    }
+    .o_pcat_topbar {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2.2mm;
+    }
+    .o_pcat_header, .o_pcat_content, .o_pcat_footer {
+        position: absolute;
+        overflow: hidden;
+    }
+    .o_pcat_header {
+        td { vertical-align: middle; }
+        .o_pcat_header_logo img { max-height: 7mm; max-width: 34mm; }
+        .o_pcat_header_title {
+            @include pcat-font(semibold);
+            color: $pcat-ink;
+            font-size: 9pt;
+            padding: 0 3mm;
+            white-space: nowrap;
+        }
+        .o_pcat_header_side {
+            text-align: right;
+            color: $pcat-muted;
+            font-size: 7.5pt;
+            white-space: nowrap;
+        }
+    }
+    .o_pcat_header_rule {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 0.3mm;
+        background: $pcat-hairline;
+    }
+    .o_pcat_footer {
+        border-top: 0.25mm solid $pcat-hairline;
+        color: $pcat-muted;
+        font-size: 6.6pt;
+        td { vertical-align: top; padding-top: 2mm; }
+        .o_pcat_footer_stamp { line-height: 1.45; }
+        .o_pcat_footer_note { color: $pcat-faint; }
+        .o_pcat_pageno {
+            @include pcat-font(semibold);
+            text-align: right;
+            color: $pcat-ink;
+            font-size: 8pt;
+            white-space: nowrap;
+            width: 22mm;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Category band
+    // ------------------------------------------------------------------
+    .o_pcat_heading {
+        overflow: hidden;
+        border-left: 1.4mm solid $pcat-ink;
+        padding: 0 3.5mm;
+        td { vertical-align: middle; }
+        .o_pcat_heading_label {
+            @include pcat-font(bold);
+            color: $pcat-ink;
+            font-size: 11.5pt;
+            white-space: nowrap;
+        }
+        .o_pcat_heading_cont {
+            color: $pcat-muted;
+            font-size: 7.5pt;
+            text-align: right;
+            white-space: nowrap;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Rows and cards
+    // ------------------------------------------------------------------
+    .o_pcat_row { table-layout: fixed; }
+    .o_pcat_card {
+        position: relative;
+        overflow: hidden;
+        background: #FFFFFF;
+        border: 0.25mm solid $pcat-card-border;
+        border-radius: 2.4mm;
+    }
+    .o_pcat_imgbox {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-radius: 1.6mm;
+        background: $pcat-surface;
+        overflow: hidden;
+    }
+    .o_pcat_imgcell {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        img { max-width: 100%; }
+    }
+    .o_pcat_monogram {
+        @include pcat-font(bold);
+        font-size: 20pt;
+        line-height: 1;
+    }
+    .o_pcat_name {
+        @include pcat-font(semibold);
+        color: $pcat-ink;
+        overflow: hidden;
+        line-height: 1.25;
+    }
+    .o_pcat_ref {
+        color: $pcat-muted;
+        font-size: 6.6pt;
+        height: 3.6mm;
+        line-height: 3.6mm;
+        overflow: hidden;
+        white-space: nowrap;
+        letter-spacing: 0.15mm;
+    }
+    .o_pcat_desc {
+        color: $pcat-body;
+        overflow: hidden;
+        line-height: 1.35;
+    }
+    .o_pcat_meta {
+        width: 100%;
+        table-layout: fixed;
+        td { vertical-align: bottom; }
+    }
+    .o_pcat_price {
+        @include pcat-font(bold);
+        font-size: 11pt;
+        line-height: 1.1;
+        white-space: nowrap;
+    }
+    .o_pcat_from {
+        color: $pcat-muted;
+        font-size: 6.4pt;
+        margin-right: 0.8mm;
+    }
+    .o_pcat_compare {
+        color: $pcat-faint;
+        font-size: 7pt;
+        text-decoration: line-through;
+        white-space: nowrap;
+        display: block;
+        line-height: 1.2;
+    }
+    .o_pcat_qr {
+        text-align: right;
+        img { display: block; }
+        .o_pcat_qr_img { margin-left: auto; }
+    }
+
+    // Availability badge (never shows quantities)
+    .o_pcat_badge {
+        @include pcat-font(medium);
+        display: inline-block;
+        font-size: 6.2pt;
+        line-height: 3.8mm;
+        height: 3.8mm;
+        padding: 0 1.8mm;
+        border-radius: 1.9mm;
+        white-space: nowrap;
+        margin-top: 1.1mm;
+        .o_pcat_dot {
+            display: inline-block;
+            width: 1.3mm; height: 1.3mm;
+            border-radius: 0.65mm;
+            margin-right: 1mm;
+            position: relative;
+            top: -0.2mm;
+        }
+    }
+    .o_pcat_badge_in  { color: #166534; background: #DCFCE7; .o_pcat_dot { background: #16A34A; } }
+    .o_pcat_badge_low { color: #92400E; background: #FEF3C7; .o_pcat_dot { background: #D97706; } }
+    .o_pcat_badge_out { color: #475569; background: #EEF2F6; .o_pcat_dot { background: #94A3B8; } }
+
+    // Grid style ------------------------------------------------------
+    .o_pcat_card_grid {
+        padding: 3mm;
+        .o_pcat_name { margin-top: 2.2mm; }
+        .o_pcat_desc { margin-top: 1.4mm; }
+        .o_pcat_meta { margin-top: 2mm; }
+    }
+
+    // List style ------------------------------------------------------
+    .o_pcat_card_list {
+        padding: 2.6mm;
+        border-radius: 1.8mm;
+        td { vertical-align: middle; }
+        .o_pcat_list_text { padding: 0 3.5mm; }
+        .o_pcat_name { white-space: nowrap; }
+        .o_pcat_desc { margin-top: 1mm; }
+        .o_pcat_list_price { text-align: right; }
+    }
+
+    // Showcase style -------------------------------------------------
+    .o_pcat_card_showcase {
+        padding: 4mm;
+        border-radius: 3mm;
+        .o_pcat_name { margin-top: 2mm; }
+        .o_pcat_desc { margin-top: 2mm; }
+        .o_pcat_meta { margin-top: 3mm; }
+        .o_pcat_price { font-size: 15pt; }
+        .o_pcat_eyebrow { margin-bottom: 1mm; }
+        .o_pcat_show_text { padding-left: 6mm; vertical-align: top; }
+    }
+    .o_pcat_eyebrow {
+        @include pcat-font(semibold);
+        font-size: 6.6pt;
+        letter-spacing: 0.35mm;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    // ------------------------------------------------------------------
+    // Cover
+    // ------------------------------------------------------------------
+    .o_pcat_cover_panel {
+        position: absolute;
+        left: 0; right: 0; top: 0;
+        overflow: hidden;
+    }
+    .o_pcat_circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.07);
+    }
+    .o_pcat_cover_logo {
+        position: absolute;
+        background: #FFFFFF;
+        border-radius: 2.4mm;
+        padding: 3mm 4mm;
+        img { max-height: 13mm; max-width: 46mm; display: block; }
+    }
+    .o_pcat_cover_text {
+        position: absolute;
+        color: #FFFFFF;
+        .o_pcat_eyebrow { color: rgba(255, 255, 255, 0.78); font-size: 8pt; }
+    }
+    .o_pcat_cover_title {
+        @include pcat-font(bold);
+        font-size: 32pt;
+        line-height: 1.12;
+        margin-top: 4mm;
+        color: #FFFFFF;
+    }
+    .o_pcat_cover_subtitle {
+        font-size: 12.5pt;
+        line-height: 1.4;
+        margin-top: 4mm;
+        color: rgba(255, 255, 255, 0.86);
+    }
+    .o_pcat_cover_image {
+        position: absolute;
+        overflow: hidden;
+        border-radius: 3.5mm;
+        border: 1.6mm solid #FFFFFF;
+        background: #FFFFFF;
+    }
+    .o_pcat_cover_facts {
+        position: absolute;
+        td { padding: 0 0 5mm 0; vertical-align: top; }
+        .o_pcat_fact_label {
+            @include pcat-font(semibold);
+            color: $pcat-muted;
+            font-size: 6.6pt;
+            letter-spacing: 0.3mm;
+            text-transform: uppercase;
+        }
+        .o_pcat_fact_value {
+            @include pcat-font(semibold);
+            color: $pcat-ink;
+            font-size: 10.5pt;
+            margin-top: 1mm;
+        }
+    }
+    .o_pcat_cover_chips {
+        position: absolute;
+        .o_pcat_fact_label {
+            @include pcat-font(semibold);
+            color: $pcat-muted;
+            font-size: 6.6pt;
+            letter-spacing: 0.3mm;
+            text-transform: uppercase;
+            margin-bottom: 2.4mm;
+        }
+    }
+    .o_pcat_chip {
+        @include pcat-font(medium);
+        display: inline-block;
+        color: $pcat-ink;
+        background: $pcat-surface;
+        border: 0.25mm solid $pcat-hairline;
+        border-radius: 3mm;
+        font-size: 8pt;
+        line-height: 6mm;
+        height: 6.4mm;
+        padding: 0 3.2mm;
+        margin: 0 1.6mm 1.8mm 0;
+        white-space: nowrap;
+    }
+    .o_pcat_cover_bottom {
+        position: absolute;
+        border-top: 0.25mm solid $pcat-hairline;
+        padding-top: 4mm;
+        color: $pcat-muted;
+        font-size: 7.5pt;
+        line-height: 1.5;
+        .o_pcat_cover_company {
+            @include pcat-font(semibold);
+            color: $pcat-ink;
+            font-size: 9.5pt;
+        }
+    }
+    .o_pcat_cover_bar {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 3mm;
+    }
+
+    // ------------------------------------------------------------------
+    // Table of contents
+    // ------------------------------------------------------------------
+    .o_pcat_toc_title {
+        @include pcat-font(bold);
+        color: $pcat-ink;
+        font-size: 22pt;
+        height: 20mm;
+        padding-top: 4mm;
+    }
+    .o_pcat_toc_rule { height: 0.8mm; width: 16mm; margin-bottom: 5.2mm; }
+    .o_pcat_toc {
+        width: 100%;
+        td { height: 7.5mm; vertical-align: bottom; padding-bottom: 1.4mm; }
+        .o_pcat_toc_label {
+            @include pcat-font(medium);
+            color: $pcat-ink;
+            font-size: 10pt;
+            white-space: nowrap;
+            padding-right: 2mm;
+        }
+        .o_pcat_toc_leader_cell { width: 100%; }
+        .o_pcat_toc_leader { border-bottom: 0.35mm dotted #CBD5E1; height: 1mm; margin-bottom: 0.6mm; }
+        .o_pcat_toc_page {
+            @include pcat-font(semibold);
+            font-size: 10pt;
+            text-align: right;
+            white-space: nowrap;
+            padding-left: 2mm;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Right-to-left mirroring (Arabic, Hebrew, Persian, Urdu)
+    // Tables mirror themselves; absolutely positioned and one-sided rules
+    // are flipped here. Letter-spacing breaks Arabic joining: removed.
+    // ------------------------------------------------------------------
+    &[dir="rtl"] {
+        .o_pcat_header .o_pcat_header_side,
+        .o_pcat_footer .o_pcat_pageno,
+        .o_pcat_heading .o_pcat_heading_cont,
+        .o_pcat_card_list .o_pcat_list_price,
+        .o_pcat_toc .o_pcat_toc_page,
+        .o_pcat_qr { text-align: left; }
+        .o_pcat_qr .o_pcat_qr_img { margin-left: 0; margin-right: auto; }
+        .o_pcat_heading { border-left: 0; border-right: 1.4mm solid $pcat-ink; }
+        .o_pcat_from { margin-right: 0; margin-left: 0.8mm; }
+        .o_pcat_badge .o_pcat_dot { margin-right: 0; margin-left: 1mm; }
+        .o_pcat_card_showcase .o_pcat_show_text { padding-left: 0; padding-right: 6mm; }
+        .o_pcat_toc .o_pcat_toc_label { padding-right: 0; padding-left: 2mm; }
+        .o_pcat_toc .o_pcat_toc_page { padding-left: 0; padding-right: 2mm; }
+        .o_pcat_chip { margin: 0 0 1.8mm 1.6mm; }
+        .o_pcat_eyebrow, .o_pcat_ref, .o_pcat_fact_label {
+            letter-spacing: 0;
+        }
+    }
+}

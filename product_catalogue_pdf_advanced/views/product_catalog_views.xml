@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_catalog_view_tree" model="ir.ui.view">
+        <field name="name">product.catalog.tree</field>
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <tree string="Product Catalogues">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="catalog_type"/>
+                <field name="style"/>
+                <field name="pricelist_id"/>
+                <field name="lang" optional="show"/>
+                <field name="product_count"/>
+                <field name="last_generated_on" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_catalog_view_form" model="ir.ui.view">
+        <field name="name">product.catalog.form</field>
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <form string="Product Catalogue">
+                <header>
+                    <button name="action_print" type="object" string="Print PDF"
+                            class="btn-primary" data-hotkey="p"/>
+                    <button name="action_open_send_wizard" type="object" string="Send by Email"
+                            data-hotkey="g"/>
+                    <button name="action_preview_html" type="object" string="Preview"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_products" type="object"
+                                class="oe_stat_button" icon="fa-cubes">
+                            <field name="product_count" widget="statinfo" string="Products"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Spring 2027 Range"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="catalog_type"/>
+                            <field name="lang"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="pricelist_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <label for="valid_from" string="Validity"/>
+                            <div class="o_row">
+                                <field name="valid_from" placeholder="From"/>
+                                <span>→</span>
+                                <field name="valid_until" placeholder="Until"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products">
+                            <group>
+                                <group string="Selection">
+                                    <field name="categ_ids" widget="many2many_tags"/>
+                                    <field name="tag_ids" widget="many2many_tags"/>
+                                    <field name="attribute_value_ids" widget="many2many_tags"/>
+                                    <field name="only_saleable"/>
+                                </group>
+                                <group string="Order &amp; limits">
+                                    <field name="sort_order"/>
+                                    <field name="max_products"/>
+                                </group>
+                            </group>
+                            <group string="Explicit products">
+                                <field name="product_tmpl_ids" widget="many2many_tags"/>
+                                <field name="exclude_product_tmpl_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="Advanced filter" groups="base.group_no_one">
+                                <field name="extra_domain" widget="domain" nolabel="1" colspan="2"
+                                       options="{'model': 'product.template', 'in_dialog': True}"/>
+                            </group>
+                        </page>
+                        <page string="Design" name="design">
+                            <group>
+                                <group string="Layout">
+                                    <field name="style" widget="radio"/>
+                                    <field name="columns"/>
+                                    <field name="image_size" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="print_quality"/>
+                                </group>
+                                <group string="Paper">
+                                    <field name="paper_size" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="orientation" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="accent_color" widget="color"/>
+                                </group>
+                                <group string="Cover &amp; navigation">
+                                    <field name="show_cover"/>
+                                    <field name="cover_title" attrs="{'invisible': [('show_cover', '=', False)]}"
+                                           placeholder="Defaults to the catalogue name"/>
+                                    <field name="cover_subtitle" attrs="{'invisible': [('show_cover', '=', False)]}"/>
+                                    <field name="cover_image" widget="image" class="oe_avatar"
+                                           attrs="{'invisible': [('show_cover', '=', False)]}"/>
+                                    <field name="show_toc" attrs="{'invisible': [('group_by_category', '=', False)]}"/>
+                                </group>
+                                <group string="Page breaks">
+                                    <field name="group_by_category"/>
+                                    <field name="page_break_per_category"
+                                           attrs="{'invisible': [('group_by_category', '=', False)]}"/>
+                                    <field name="max_rows_per_page"/>
+                                    <field name="notes" placeholder="Footer note, e.g. terms of sale"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Content" name="content">
+                            <group>
+                                <group string="Show">
+                                    <field name="show_image"/>
+                                    <field name="show_default_code"/>
+                                    <field name="show_description"/>
+                                    <field name="description_source"
+                                           attrs="{'invisible': [('show_description', '=', False)]}"/>
+                                    <field name="show_price"/>
+                                    <field name="show_compare_price"
+                                           attrs="{'invisible': [('show_price', '=', False)]}"/>
+                                    <field name="price_tax_display"
+                                           attrs="{'invisible': [('show_price', '=', False)]}"/>
+                                </group>
+                                <group string="Links &amp; availability">
+                                    <field name="show_link"/>
+                                    <field name="link_url_pattern"
+                                           attrs="{'invisible': [('show_link', '=', False)]}"
+                                           placeholder="https://shop.example.com/p/{default_code}"/>
+                                    <field name="show_stock"/>
+                                    <field name="warehouse_id"
+                                           attrs="{'required': ['|', ('show_stock', '=', True), ('hide_out_of_stock', '=', True)]}"/>
+                                    <field name="low_stock_threshold"
+                                           attrs="{'invisible': [('show_stock', '=', False)]}"/>
+                                    <field name="hide_out_of_stock"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Delivery" name="delivery">
+                            <group>
+                                <field name="cache_ttl_minutes"/>
+                                <field name="last_generated_on"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_catalog_view_search" model="ir.ui.view">
+        <field name="name">product.catalog.search</field>
+        <field name="model">product.catalog</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="pricelist_id"/>
+                <field name="categ_ids"/>
+                <filter name="filter_customer" string="Customer-specific"
+                        domain="[('catalog_type', '=', 'customer')]"/>
+                <filter name="filter_promotion" string="Promotions"
+                        domain="[('catalog_type', '=', 'promotion')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Type" context="{'group_by': 'catalog_type'}"/>
+                    <filter name="group_style" string="Style" context="{'group_by': 'style'}"/>
+                    <filter name="group_pricelist" string="Pricelist" context="{'group_by': 'pricelist_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_catalog" model="ir.actions.act_window">
+        <field name="name">Product Catalogues</field>
+        <field name="res_model">product.catalog</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product_catalog_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first product catalogue</p>
+            <p>
+                Pick products by category, tag or attribute, choose a pricelist and a
+                design, then print it or email it. Each customer receives prices from
+                their own pricelist, in their own language.
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Demo data: a small office-furniture range (Najd Office Interiors), three
+     pricelist situations and three ready-to-print catalogues. Images are
+     generated illustrations shipped in static/img/demo. -->
+<odoo>
+    <!-- Categories and tags -->
+    <record id="demo_categ_root" model="product.category"><field name="name">Office Furniture</field></record>
+    <record id="demo_categ_office_chairs" model="product.category">
+        <field name="name">Office Chairs</field>
+        <field name="parent_id" ref="demo_categ_root"/>
+    </record>
+    <record id="demo_categ_desks" model="product.category">
+        <field name="name">Desks &amp; Workstations</field>
+        <field name="parent_id" ref="demo_categ_root"/>
+    </record>
+    <record id="demo_categ_storage" model="product.category">
+        <field name="name">Storage</field>
+        <field name="parent_id" ref="demo_categ_root"/>
+    </record>
+    <record id="demo_categ_lighting" model="product.category">
+        <field name="name">Lighting</field>
+        <field name="parent_id" ref="demo_categ_root"/>
+    </record>
+    <record id="demo_categ_accessories" model="product.category">
+        <field name="name">Accessories</field>
+        <field name="parent_id" ref="demo_categ_root"/>
+    </record>
+    <record id="demo_tag_new" model="product.tag"><field name="name">New</field></record>
+    <record id="demo_tag_bestseller" model="product.tag"><field name="name">Bestseller</field></record>
+    <record id="demo_tag_eco" model="product.tag"><field name="name">Eco</field></record>
+
+    <!-- Colour attribute: the ErgoFlex chair comes in three colours, one with a surcharge -->
+    <record id="demo_attr_colour" model="product.attribute">
+        <field name="name">Upholstery Colour</field>
+        <field name="create_variant">always</field>
+    </record>
+    <record id="demo_attr_colour_graphite" model="product.attribute.value">
+        <field name="name">Graphite</field>
+        <field name="attribute_id" ref="demo_attr_colour"/>
+    </record>
+    <record id="demo_attr_colour_sand" model="product.attribute.value">
+        <field name="name">Sand</field>
+        <field name="attribute_id" ref="demo_attr_colour"/>
+    </record>
+    <record id="demo_attr_colour_ocean" model="product.attribute.value">
+        <field name="name">Ocean</field>
+        <field name="attribute_id" ref="demo_attr_colour"/>
+    </record>
+
+    <!-- Products (templates) -->
+    <record id="demo_product_ergoflex" model="product.template">
+        <field name="name">ErgoFlex Pro Mesh Task Chair</field>
+        <field name="categ_id" ref="demo_categ_office_chairs"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">1450</field>
+        <field name="barcode">628000000001</field>
+        <field name="description_sale">Breathable mesh back, adjustable lumbar support, 4D armrests and synchronised tilt.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_new'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/ergoflex.jpg"/>
+        <field name="attribute_line_ids" eval="[(0, 0, {
+            'attribute_id': ref('demo_attr_colour'),
+            'value_ids': [(6, 0, [ref('demo_attr_colour_graphite'), ref('demo_attr_colour_sand'), ref('demo_attr_colour_ocean')])],
+        })]"/>
+    </record>
+    <record id="demo_product_executive" model="product.template">
+        <field name="name">Executive High-Back Leather Chair with Adjustable Headrest and Polished Aluminium Base</field>
+        <field name="categ_id" ref="demo_categ_office_chairs"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">2890</field>
+        <field name="default_code">NOI-CHA-002</field>
+        <field name="barcode">628000000002</field>
+        <field name="description_sale">Full-grain leather, pocket-spring seat, polished aluminium five-star base.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_bestseller'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/executive.jpg"/>
+    </record>
+    <record id="demo_product_visitor" model="product.template">
+        <field name="name">Visitor Chair Stackable</field>
+        <field name="categ_id" ref="demo_categ_office_chairs"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">340</field>
+        <field name="default_code">NOI-CHA-003</field>
+        <field name="barcode">628000000003</field>
+        <field name="description_sale">Stacks up to 8 high. Polypropylene shell.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_eco'))]"/>
+    </record>
+    <record id="demo_product_stool" model="product.template">
+        <field name="name">Drafting Stool Tall</field>
+        <field name="categ_id" ref="demo_categ_office_chairs"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">610</field>
+        <field name="default_code">NOI-CHA-004</field>
+        <field name="barcode">628000000004</field>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/stool.jpg"/>
+    </record>
+    <record id="demo_product_lounge" model="product.template">
+        <field name="name">Lounge Armchair Nordic</field>
+        <field name="categ_id" ref="demo_categ_office_chairs"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">1980</field>
+        <field name="default_code">NOI-CHA-005</field>
+        <field name="barcode">628000000005</field>
+        <field name="description_sale">Solid oak frame and wool upholstery for reception areas.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_new'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/lounge.jpg"/>
+    </record>
+    <record id="demo_product_cantilever" model="product.template">
+        <field name="name">Conference Chair Cantilever</field>
+        <field name="categ_id" ref="demo_categ_office_chairs"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">720</field>
+        <field name="default_code">NOI-CHA-006</field>
+        <field name="barcode">628000000006</field>
+        <field name="description_sale">Chrome cantilever frame, padded seat.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_bestseller'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/cantilever.jpg"/>
+    </record>
+    <record id="demo_product_sitstand" model="product.template">
+        <field name="name">Sit-Stand Desk Dual Motor 160x80</field>
+        <field name="categ_id" ref="demo_categ_desks"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">3250</field>
+        <field name="default_code">NOI-DES-007</field>
+        <field name="barcode">628000000007</field>
+        <field name="description_sale">Dual motors, 4 memory presets, anti-collision. Height 62–127 cm.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_bestseller'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/sitstand.jpg"/>
+    </record>
+    <record id="demo_product_bench" model="product.template">
+        <field name="name">Bench Workstation 4-Person</field>
+        <field name="categ_id" ref="demo_categ_desks"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">6900</field>
+        <field name="default_code">NOI-DES-008</field>
+        <field name="barcode">628000000008</field>
+        <field name="description_sale">Shared spine for cable management, privacy screens included.</field>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/bench.jpg"/>
+    </record>
+    <record id="demo_product_compact" model="product.template">
+        <field name="name">Compact Home Office Desk</field>
+        <field name="categ_id" ref="demo_categ_desks"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">890</field>
+        <field name="default_code">NOI-DES-009</field>
+        <field name="barcode">628000000009</field>
+        <field name="description_sale">Fits 100 cm alcoves.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_eco'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/compact.jpg"/>
+    </record>
+    <record id="demo_product_walnut" model="product.template">
+        <field name="name">Executive Desk Walnut Veneer</field>
+        <field name="categ_id" ref="demo_categ_desks"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">7400</field>
+        <field name="default_code">NOI-DES-010</field>
+        <field name="barcode">628000000010</field>
+        <field name="description_sale">Walnut veneer, leather writing inlay, integrated power module.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_new'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/walnut.jpg"/>
+    </record>
+    <record id="demo_product_meeting" model="product.template">
+        <field name="name">Meeting Table Round 120</field>
+        <field name="categ_id" ref="demo_categ_desks"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">1650</field>
+        <field name="default_code">NOI-DES-011</field>
+        <field name="barcode">628000000011</field>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/meeting.jpg"/>
+    </record>
+    <record id="demo_product_pedestal" model="product.template">
+        <field name="name">Mobile Pedestal 3 Drawers</field>
+        <field name="categ_id" ref="demo_categ_storage"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">760</field>
+        <field name="default_code">NOI-STO-012</field>
+        <field name="barcode">628000000012</field>
+        <field name="description_sale">Central locking, anti-tilt, fits under all our desks.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_bestseller'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/pedestal.jpg"/>
+    </record>
+    <record id="demo_product_cabinet" model="product.template">
+        <field name="name">Tall Cabinet Double Door</field>
+        <field name="categ_id" ref="demo_categ_storage"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">1890</field>
+        <field name="default_code">NOI-STO-013</field>
+        <field name="barcode">628000000013</field>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/cabinet.jpg"/>
+    </record>
+    <record id="demo_product_filing" model="product.template">
+        <field name="name">Lateral Filing Cabinet 4 Drawer</field>
+        <field name="categ_id" ref="demo_categ_storage"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">2340</field>
+        <field name="default_code">NOI-STO-014</field>
+        <field name="barcode">628000000014</field>
+        <field name="description_sale">Takes A4 and foolscap hanging files.</field>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/filing.jpg"/>
+    </record>
+    <record id="demo_product_locker" model="product.template">
+        <field name="name">Personal Locker Bank 6</field>
+        <field name="categ_id" ref="demo_categ_storage"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">2650</field>
+        <field name="default_code">NOI-STO-015</field>
+        <field name="barcode">628000000015</field>
+        <field name="description_sale">Keyless combination locks, ventilated doors.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_new'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/locker.jpg"/>
+    </record>
+    <record id="demo_product_arc" model="product.template">
+        <field name="name">LED Desk Lamp Arc</field>
+        <field name="categ_id" ref="demo_categ_lighting"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">390</field>
+        <field name="default_code">NOI-LIG-016</field>
+        <field name="barcode">628000000016</field>
+        <field name="description_sale">Dimmable, 3 colour temperatures, USB-C charging port.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_eco'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/arc.jpg"/>
+    </record>
+    <record id="demo_product_floor" model="product.template">
+        <field name="name">Floor Lamp Uplighter</field>
+        <field name="categ_id" ref="demo_categ_lighting"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">720</field>
+        <field name="default_code">NOI-LIG-017</field>
+        <field name="barcode">628000000017</field>
+    </record>
+    <record id="demo_product_pendant" model="product.template">
+        <field name="name">Pendant Linear Suspended 120cm</field>
+        <field name="categ_id" ref="demo_categ_lighting"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">1340</field>
+        <field name="default_code">NOI-LIG-018</field>
+        <field name="barcode">628000000018</field>
+        <field name="description_sale">UGR&lt;19 for glare-free screen work.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_new'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/pendant.jpg"/>
+    </record>
+    <record id="demo_product_lightbar" model="product.template">
+        <field name="name">Monitor Light Bar</field>
+        <field name="categ_id" ref="demo_categ_lighting"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">260</field>
+        <field name="default_code">NOI-LIG-019</field>
+        <field name="barcode">628000000019</field>
+        <field name="description_sale">No screen glare, clamps to any monitor.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_bestseller'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/lightbar.jpg"/>
+    </record>
+    <record id="demo_product_monitorarm" model="product.template">
+        <field name="name">Monitor Arm Dual Gas Spring</field>
+        <field name="categ_id" ref="demo_categ_accessories"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">540</field>
+        <field name="default_code">NOI-ACC-020</field>
+        <field name="barcode">628000000020</field>
+        <field name="description_sale">For 17–32" screens up to 9 kg each.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_bestseller'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/monitorarm.jpg"/>
+    </record>
+    <record id="demo_product_cabletray" model="product.template">
+        <field name="name">Cable Tray Under-Desk</field>
+        <field name="categ_id" ref="demo_categ_accessories"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">120</field>
+        <field name="default_code">NOI-ACC-021</field>
+        <field name="barcode">628000000021</field>
+    </record>
+    <record id="demo_product_footrest" model="product.template">
+        <field name="name">Footrest Ergonomic Tilting</field>
+        <field name="categ_id" ref="demo_categ_accessories"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">190</field>
+        <field name="default_code">NOI-ACC-022</field>
+        <field name="barcode">628000000022</field>
+        <field name="description_sale">Textured surface, tilt 0–30°.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_eco'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/footrest.jpg"/>
+    </record>
+    <record id="demo_product_organiser" model="product.template">
+        <field name="name">Desk Organiser Felt Set</field>
+        <field name="categ_id" ref="demo_categ_accessories"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">140</field>
+        <field name="default_code">NOI-ACC-023</field>
+        <field name="barcode">628000000023</field>
+        <field name="description_sale">Recycled PET felt.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_eco'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/organiser.jpg"/>
+    </record>
+    <record id="demo_product_divider" model="product.template">
+        <field name="name">Acoustic Desk Divider 140</field>
+        <field name="categ_id" ref="demo_categ_accessories"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">680</field>
+        <field name="default_code">NOI-ACC-024</field>
+        <field name="barcode">628000000024</field>
+        <field name="description_sale">Class B sound absorber, pinnable.</field>
+        <field name="product_tag_ids" eval="[(4, ref('demo_tag_new'))]"/>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/divider.jpg"/>
+    </record>
+    <record id="demo_product_laptopstand" model="product.template">
+        <field name="name">Laptop Stand Aluminium</field>
+        <field name="categ_id" ref="demo_categ_accessories"/>
+        <field name="detailed_type">product</field>
+        <field name="list_price">175</field>
+        <field name="default_code">NOI-ACC-025</field>
+        <field name="barcode">628000000025</field>
+        <field name="image_1920" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/laptopstand.jpg"/>
+    </record>
+
+    <!-- Ocean upholstery costs 120 more: the catalogue prints "From 1,450" -->
+    <function model="product.template.attribute.value" name="write">
+        <value model="product.template.attribute.value"
+               search="[('product_tmpl_id', '=', ref('demo_product_ergoflex')), ('product_attribute_value_id', '=', ref('demo_attr_colour_ocean'))]"/>
+        <value eval="{'price_extra': 120.0}"/>
+    </function>
+
+    <!-- Stock: plenty, low (below 5) and none, to show every availability badge -->
+    <record id="demo_quant_ergoflex" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_ergoflex').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">40</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_executive" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_executive').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">3</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_stool" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_stool').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">12</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_cantilever" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_cantilever').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">75</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_sitstand" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_sitstand').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">40</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_bench" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_bench').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">3</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_walnut" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_walnut').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">12</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_pedestal" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_pedestal').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">75</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_cabinet" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_cabinet').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">40</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_filing" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_filing').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">3</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_arc" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_arc').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">12</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_pendant" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_pendant').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">75</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_lightbar" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_lightbar').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">40</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_monitorarm" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_monitorarm').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">3</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_footrest" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_footrest').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">12</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_organiser" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_organiser').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">75</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_divider" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_divider').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">40</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <record id="demo_quant_laptopstand" model="stock.quant">
+        <field name="product_id" model="product.product" eval="obj().env.ref('product_catalogue_pdf_advanced.demo_product_laptopstand').product_variant_ids[:1].id"/>
+        <field name="inventory_quantity">3</field>
+        <field name="location_id" model="stock.location" eval="obj().env.ref('stock.warehouse0').lot_stock_id.id"/>
+    </record>
+    <function model="stock.quant" name="action_apply_inventory">
+        <function eval="[[('id', 'in', [ref('demo_quant_ergoflex'), ref('demo_quant_executive'), ref('demo_quant_stool'), ref('demo_quant_cantilever'), ref('demo_quant_sitstand'), ref('demo_quant_bench'), ref('demo_quant_walnut'), ref('demo_quant_pedestal'), ref('demo_quant_cabinet'), ref('demo_quant_filing'), ref('demo_quant_arc'), ref('demo_quant_pendant'), ref('demo_quant_lightbar'), ref('demo_quant_monitorarm'), ref('demo_quant_footrest'), ref('demo_quant_organiser'), ref('demo_quant_divider'), ref('demo_quant_laptopstand')])]]" model="stock.quant" name="search"/>
+    </function>
+
+    <!-- Pricelists: public, and a trade pricelist that shows its 12% discount -->
+    <record id="demo_pricelist_trade" model="product.pricelist">
+        <field name="name">Trade Partners -12%</field>
+        <field name="discount_policy">without_discount</field>
+    </record>
+    <record id="demo_pricelist_trade_rule" model="product.pricelist.item">
+        <field name="pricelist_id" ref="demo_pricelist_trade"/>
+        <field name="applied_on">3_global</field>
+        <field name="compute_price">percentage</field>
+        <field name="percent_price">12</field>
+    </record>
+
+    <!-- Customers: two trade customers and one on the public pricelist.
+         Sending to all three produces two PDFs, one per pricelist. -->
+    <record id="demo_partner_alrawabi" model="res.partner">
+        <field name="name">Al Rawabi Contracting</field>
+        <field name="email">buyer@alrawabi.example</field>
+        <field name="is_company" eval="True"/>
+        <field name="property_product_pricelist" ref="demo_pricelist_trade"/>
+    </record>
+    <record id="demo_partner_gulfdesign" model="res.partner">
+        <field name="name">Gulf Design Studio</field>
+        <field name="email">studio@gulfdesign.example</field>
+        <field name="is_company" eval="True"/>
+        <field name="property_product_pricelist" ref="demo_pricelist_trade"/>
+    </record>
+    <record id="demo_partner_walkin" model="res.partner">
+        <field name="name">Walk-in Customer (Catalogue Demo)</field>
+        <field name="email">walkin@example.com</field>
+        <field name="is_company" eval="True"/>
+        <field name="property_product_pricelist" ref="product.list0"/>
+    </record>
+
+    <!-- Ready-to-print catalogues -->
+    <record id="demo_catalog_collection" model="product.catalog">
+        <field name="name">Office Collection 2027</field>
+        <field name="catalog_type">general</field>
+        <field name="cover_title">Office Collection 2027</field>
+        <field name="cover_subtitle">Seating, desks, storage and lighting for modern workplaces</field>
+        <field name="cover_image" type="base64" file="product_catalogue_pdf_advanced/static/img/demo/ergoflex.jpg"/>
+        <field name="style">grid</field>
+        <field name="columns">3</field>
+        <field name="image_size">medium</field>
+        <field name="show_toc" eval="True"/>
+        <field name="show_stock" eval="True"/>
+        <field name="show_link" eval="True"/>
+        <field name="link_url_pattern">https://najd-interiors.example/p/{default_code}</field>
+        <field name="categ_ids" eval="[(6, 0, [ref('demo_categ_root')])]"/>
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="valid_until" eval="(DateTime.today() + relativedelta(months=6)).strftime('%Y-%m-%d')"/>
+        <field name="notes">Prices subject to stock availability. Delivery within 10 working days.</field>
+        <field name="lang">en_US</field>
+    </record>
+    <record id="demo_catalog_trade" model="product.catalog">
+        <field name="name">Trade Catalogue</field>
+        <field name="catalog_type">customer</field>
+        <field name="cover_title">Trade Catalogue</field>
+        <field name="cover_subtitle">Partner prices on our full range</field>
+        <field name="style">grid</field>
+        <field name="columns">4</field>
+        <field name="image_size">small</field>
+        <field name="accent_color">#0F766E</field>
+        <field name="show_toc" eval="True"/>
+        <field name="show_stock" eval="True"/>
+        <field name="show_link" eval="True"/>
+        <field name="link_url_pattern">https://najd-interiors.example/p/{default_code}</field>
+        <field name="categ_ids" eval="[(6, 0, [ref('demo_categ_root')])]"/>
+        <field name="pricelist_id" ref="demo_pricelist_trade"/>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+    </record>
+    <record id="demo_catalog_price_list" model="product.catalog">
+        <field name="name">Price List</field>
+        <field name="catalog_type">internal</field>
+        <field name="style">list</field>
+        <field name="columns">1</field>
+        <field name="image_size">small</field>
+        <field name="accent_color">#7C3AED</field>
+        <field name="show_cover" eval="False"/>
+        <field name="show_stock" eval="True"/>
+        <field name="categ_ids" eval="[(6, 0, [ref('demo_categ_root')])]"/>
+        <field name="pricelist_id" ref="demo_pricelist_trade"/>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+    </record>
+    <record id="demo_catalog_lookbook" model="product.catalog">
+        <field name="name">New Arrivals Lookbook</field>
+        <field name="catalog_type">promotion</field>
+        <field name="cover_title">New Arrivals</field>
+        <field name="cover_subtitle">This season's additions to the range</field>
+        <field name="style">showcase</field>
+        <field name="columns">2</field>
+        <field name="image_size">medium</field>
+        <field name="orientation">landscape</field>
+        <field name="group_by_category" eval="False"/>
+        <field name="accent_color">#B45309</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_new')])]"/>
+        <field name="pricelist_id" ref="product.list0"/>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+        <field name="show_stock" eval="True"/>
+    </record>
+</odoo>
