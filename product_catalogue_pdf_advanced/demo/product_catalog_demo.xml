@@ -412,7 +412,12 @@
         <function eval="[[('id', 'in', [ref('demo_quant_ergoflex'), ref('demo_quant_executive'), ref('demo_quant_stool'), ref('demo_quant_cantilever'), ref('demo_quant_sitstand'), ref('demo_quant_bench'), ref('demo_quant_walnut'), ref('demo_quant_pedestal'), ref('demo_quant_cabinet'), ref('demo_quant_filing'), ref('demo_quant_arc'), ref('demo_quant_pendant'), ref('demo_quant_lightbar'), ref('demo_quant_monitorarm'), ref('demo_quant_footrest'), ref('demo_quant_organiser'), ref('demo_quant_divider'), ref('demo_quant_laptopstand')])]]" model="stock.quant" name="search"/>
     </function>
 
-    <!-- Pricelists: public, and a trade pricelist that shows its 12% discount -->
+    <!-- Pricelists: public, and a trade pricelist that shows its 12% discount.
+         Odoo 17 has no product.list0 any more; the demo brings its own. -->
+    <record id="demo_pricelist_public" model="product.pricelist">
+        <field name="name">Public Price (Catalogue Demo)</field>
+        <field name="sequence">5</field>
+    </record>
     <record id="demo_pricelist_trade" model="product.pricelist">
         <field name="name">Trade Partners -12%</field>
         <field name="discount_policy">without_discount</field>
@@ -442,7 +447,7 @@
         <field name="name">Walk-in Customer (Catalogue Demo)</field>
         <field name="email">walkin@example.com</field>
         <field name="is_company" eval="True"/>
-        <field name="property_product_pricelist" ref="product.list0"/>
+        <field name="property_product_pricelist" ref="demo_pricelist_public"/>
     </record>
 
     <!-- Ready-to-print catalogues -->
@@ -460,7 +465,7 @@
         <field name="show_link" eval="True"/>
         <field name="link_url_pattern">https://najd-interiors.example/p/{default_code}</field>
         <field name="categ_ids" eval="[(6, 0, [ref('demo_categ_root')])]"/>
-        <field name="pricelist_id" ref="product.list0"/>
+        <field name="pricelist_id" ref="demo_pricelist_public"/>
         <field name="warehouse_id" ref="stock.warehouse0"/>
         <field name="valid_until" eval="(DateTime.today() + relativedelta(months=6)).strftime('%Y-%m-%d')"/>
         <field name="notes">Prices subject to stock availability. Delivery within 10 working days.</field>
@@ -508,7 +513,7 @@
         <field name="group_by_category" eval="False"/>
         <field name="accent_color">#B45309</field>
         <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_new')])]"/>
-        <field name="pricelist_id" ref="product.list0"/>
+        <field name="pricelist_id" ref="demo_pricelist_public"/>
         <field name="warehouse_id" ref="stock.warehouse0"/>
         <field name="show_stock" eval="True"/>
     </record>

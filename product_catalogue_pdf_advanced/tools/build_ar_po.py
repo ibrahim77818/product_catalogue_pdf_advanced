@@ -197,6 +197,7 @@ DEMO_AR = {
     "Sand": "رملي",
     "Ocean": "أزرق محيطي",
     "Trade Partners -12%": "الشركاء التجاريون ‎-12%",
+    "Public Price (Catalogue Demo)": "السعر العام (عرض الكتالوج)",
     "Office Collection 2027": "تشكيلة المكاتب 2027",
     "Seating, desks, storage and lighting for modern workplaces":
         "مقاعد ومكاتب ووحدات تخزين وإضاءة لبيئات العمل الحديثة",

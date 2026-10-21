@@ -3,7 +3,7 @@ Product Catalogue PDF Advanced
 ==============================
 
 Print-accurate, pricelist-aware, bilingual (LTR/RTL) PDF product catalogues
-for Odoo 16, with deterministic pagination, availability badges, QR links and
+for Odoo 17, with deterministic pagination, availability badges, QR links and
 email delivery that never leaks one customer's prices to another.
 
 .. contents::
@@ -12,7 +12,7 @@ email delivery that never leaks one customer's prices to another.
 Why it is built this way
 ========================
 
-Odoo 16 prints with **wkhtmltopdf 0.12.x (QtWebKit, ~2012)**. That engine has
+Odoo 17 prints with **wkhtmltopdf 0.12.x (QtWebKit, ~2012)**. That engine has
 no CSS Grid, unreliable ``flex-wrap``, no CSS variables, no ``object-fit``,
 ignores ``@page`` margin boxes and treats ``page-break-*`` as a hint. A
 catalogue that relies on "modern CSS paged media" looks right in the HTML
@@ -178,8 +178,12 @@ of products (no N+1).
 Requirements
 ============
 
-* Odoo 16.0 (Community or Enterprise). Depends on ``product``, ``stock`` and
+* Odoo 17.0 (Community or Enterprise). Depends on ``product``, ``stock`` and
   ``mail``. ``account`` is optional (for tax-included prices).
+* **Pricelists setting**: Odoo 17 hides pricelists until *Settings › Pricelists*
+  is on, and a catalogue needs one. Installing the module turns the setting
+  on (``hooks.py``) and creates a default pricelist per company, exactly as
+  ticking the box would.
 * Python ``qrcode``, which is already in Odoo's ``requirements.txt``.
 * **wkhtmltopdf 0.12.6.1 built with patched Qt**, as Odoo requires.
 
@@ -238,7 +242,7 @@ Each check uses an oracle outside the module's own logic:
 Known limits
 ============
 
-* Product category names are not translatable in Odoo 16, so they print as
+* Product category names are not translatable in Odoo 17, so they print as
   stored.
 * "Tax included" applies the product's customer taxes without fiscal
   position mapping. Use "Tax excluded" for cross-border catalogues.
@@ -253,3 +257,14 @@ Author: Ibrahim Yahia — https://www.linkedin.com/in/ibrahim-yahia
 
 Fonts: IBM Plex Sans Arabic © IBM Corp., SIL Open Font License 1.1
 (``static/fonts/OFL-IBM-Plex.txt``).
+
+Porting notes (16.0 → 17.0)
+===========================
+
+* Views: ``attrs`` replaced by ``invisible`` / ``required`` Python expressions.
+* ``product.product.price_compute`` renamed ``_price_compute`` in Odoo 17.
+* ``product.list0`` no longer exists; demo data ships its own public
+  pricelist, and the install hook enables the Pricelists setting.
+* Tests read PDFs through ``odoo.tools.pdf`` (pypdf or PyPDF2, as installed).
+* Send wizard and chatter list recipients by name: Odoo 17 appends the email
+  to ``display_name`` inside the email-tags widget.

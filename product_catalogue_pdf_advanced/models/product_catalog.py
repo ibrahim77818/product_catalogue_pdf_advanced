@@ -392,7 +392,7 @@ class ProductCatalog(models.Model):
         rule_prices = pricelist._compute_price_rule(variants, 1.0, date=now)
         show_compare = self.show_compare_price \
             and pricelist.discount_policy == "without_discount"
-        public = variants.price_compute(
+        public = variants._price_compute(
             "list_price", currency=currency, company=company) if show_compare else {}
         tax_included = self.price_tax_display == "included" \
             and "taxes_id" in variants._fields

@@ -39,7 +39,7 @@
                         </button>
                     </div>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
-                            attrs="{'invisible': [('active', '=', True)]}"/>
+                            invisible="active"/>
                     <field name="active" invisible="1"/>
                     <div class="oe_title">
                         <label for="name"/>
@@ -101,17 +101,17 @@
                                 </group>
                                 <group string="Cover &amp; navigation">
                                     <field name="show_cover"/>
-                                    <field name="cover_title" attrs="{'invisible': [('show_cover', '=', False)]}"
+                                    <field name="cover_title" invisible="not show_cover"
                                            placeholder="Defaults to the catalogue name"/>
-                                    <field name="cover_subtitle" attrs="{'invisible': [('show_cover', '=', False)]}"/>
+                                    <field name="cover_subtitle" invisible="not show_cover"/>
                                     <field name="cover_image" widget="image" class="oe_avatar"
-                                           attrs="{'invisible': [('show_cover', '=', False)]}"/>
-                                    <field name="show_toc" attrs="{'invisible': [('group_by_category', '=', False)]}"/>
+                                           invisible="not show_cover"/>
+                                    <field name="show_toc" invisible="not group_by_category"/>
                                 </group>
                                 <group string="Page breaks">
                                     <field name="group_by_category"/>
                                     <field name="page_break_per_category"
-                                           attrs="{'invisible': [('group_by_category', '=', False)]}"/>
+                                           invisible="not group_by_category"/>
                                     <field name="max_rows_per_page"/>
                                     <field name="notes" placeholder="Footer note, e.g. terms of sale"/>
                                 </group>
@@ -124,23 +124,23 @@
                                     <field name="show_default_code"/>
                                     <field name="show_description"/>
                                     <field name="description_source"
-                                           attrs="{'invisible': [('show_description', '=', False)]}"/>
+                                           invisible="not show_description"/>
                                     <field name="show_price"/>
                                     <field name="show_compare_price"
-                                           attrs="{'invisible': [('show_price', '=', False)]}"/>
+                                           invisible="not show_price"/>
                                     <field name="price_tax_display"
-                                           attrs="{'invisible': [('show_price', '=', False)]}"/>
+                                           invisible="not show_price"/>
                                 </group>
                                 <group string="Links &amp; availability">
                                     <field name="show_link"/>
                                     <field name="link_url_pattern"
-                                           attrs="{'invisible': [('show_link', '=', False)]}"
+                                           invisible="not show_link"
                                            placeholder="https://shop.example.com/p/{default_code}"/>
                                     <field name="show_stock"/>
                                     <field name="warehouse_id"
-                                           attrs="{'required': ['|', ('show_stock', '=', True), ('hide_out_of_stock', '=', True)]}"/>
+                                           required="show_stock or hide_out_of_stock"/>
                                     <field name="low_stock_threshold"
-                                           attrs="{'invisible': [('show_stock', '=', False)]}"/>
+                                           invisible="not show_stock"/>
                                     <field name="hide_out_of_stock"/>
                                 </group>
                             </group>

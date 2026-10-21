@@ -3,7 +3,7 @@
 
 Why this exists
 ---------------
-Odoo 16 renders PDFs with wkhtmltopdf 0.12.x (QtWebKit, ~2012). That engine has
+Odoo 17 renders PDFs with wkhtmltopdf 0.12.x (QtWebKit, ~2012). That engine has
 no CSS Grid, unreliable ``flex-wrap``, ignores ``@page`` margin boxes / named
 pages and only honours ``page-break-*`` as a hint. Relying on it to decide
 where pages break gives catalogues whose cards are sliced in half and whose

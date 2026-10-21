@@ -499,7 +499,7 @@ class TestCatalogPdf(HttpCase):
     def _pdf(self):
         pdf, _fmt = self.env["ir.actions.report"].with_context(
             force_report_rendering=True)._render_qweb_pdf(REPORT, self.catalog.ids)
-        from PyPDF2 import PdfReader
+        from odoo.tools.pdf import PdfReader
         return PdfReader(io.BytesIO(pdf))
 
     def test_pdf_page_count_matches_plan(self):
@@ -519,7 +519,7 @@ class TestCatalogPdf(HttpCase):
         with patch.object(product_catalog, "PAGE_BATCH", 2):
             # Outside tests Odoo always renders; inside, it must be forced.
             pdf = self.catalog.with_context(force_report_rendering=True)._render_pdf()
-        from PyPDF2 import PdfReader
+        from odoo.tools.pdf import PdfReader
         reader = PdfReader(io.BytesIO(pdf))
         self.assertEqual(len(reader.pages), len(plan))
         self.assertIn("3 / %s" % len(plan), reader.pages[2].extract_text())
